@@ -3,6 +3,5 @@
 (package! pandoc-mode)
 (package! org-super-agenda)
 (package! org-chef)
-(package! golden-ratio)
-(package! org-tempo)
+;(package! golden-ratio)
 (package! org-fancy-priorities)

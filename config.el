@@ -20,7 +20,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 14))
+;(setq doom-font (font-spec :family "monospace" :size 14))
+(setq doom-font (font-spec :family "Fira Mono" :size 14))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -88,14 +89,14 @@
 ;         :empty-lines 1)))
 
 
-(use-package! golden-ratio
-  :after-call pre-command-hook
-  :config
-  (golden-ratio-mode +1)
+;(use-package! golden-ratio
+;  :after-call pre-command-hook
+;  :config
+;  (golden-ratio-mode +1)
   ;; Using this hook for resizing windows is less precise than
   ;; `doom-switch-window-hook'.
-  (remove-hook 'window-configuration-change-hook #'golden-ratio)
-  (add-hook 'doom-switch-window-hook #'golden-ratio))
+;  (remove-hook 'window-configuration-change-hook #'golden-ratio)
+;  (add-hook 'doom-switch-window-hook #'golden-ratio))
 
 
 (use-package! org-super-agenda
@@ -125,6 +126,7 @@
         :n "M-j" #'org-metadown
         :n "M-k" #'org-metaup)
   (setq org-agenda-skip-scheduled-if-done t
+        org-log-done 'time
         org-priority-faces '((65 :foreground "#e45649")
                              (66 :foreground "#da8548")
                              (67 :foreground "#0098dd"))
