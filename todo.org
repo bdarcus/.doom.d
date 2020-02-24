@@ -1,6 +1,7 @@
 #+TITLE:TODO
 
-* [ ] FIX [/]
+* [ ] FIX [0/0]
+** [X] calendar selection doesn't work correctly in org; removed golden-ratio mode to fix
 ** [ ] enter key doesn't change checkbox status with this config; works fine with vanilla though
 * [ ] ENHANCE [/]
 ** [ ]
