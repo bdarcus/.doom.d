@@ -1,6 +1,0 @@
-#+TITLE:notes
-
-* [ ] FIX [/]
-** [ ] enter key doesn't change checkbox status with this config; works fine with vanilla though
-* [ ] ENHANCE [/]
-** [ ]
