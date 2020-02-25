@@ -145,3 +145,5 @@
   (setq org-fancy-priorities-list '("◼" "◼" "◼")))
 
 (setq flyspell-correct-popup t)
+
+(setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")
