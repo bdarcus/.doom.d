@@ -5,4 +5,3 @@
 (package! org-chef)
 ;(package! golden-ratio)
 (package! org-fancy-priorities)
-(package! writegood-mode)
