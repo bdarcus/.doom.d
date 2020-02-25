@@ -42,12 +42,13 @@
 
 ;; org-roam isn't loading by default; need to FIX
 (use-package! org-roam
-  :after org
-  :hook (after-init . org-roam-mode)
-  :custom
-  (org-roam-directory "~/org/roam")
-  (org-roam-graph-node-shape "note"))
+      :after org
+      :hook (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/org/roam")
+      (org-roam-link-representation 'title))
 
+(setq org-roam-graph-node-shape "note")
 
 (setq bibtex-completion-bibliography
       '("~/org/bib/academic.bib"
@@ -119,7 +120,6 @@
   (org-super-agenda-mode))
 
 (after! org
-  (require 'org-tempo)
   (set-popup-rule! "^ \\*Org tags" :side 'bottom :size 0.80 :select t :ttl nil)
 
   (map! :map org-mode-map
