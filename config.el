@@ -40,15 +40,13 @@
   :after org
   :init)
 
-;; org-roam isn't loading by default; need to FIX
+;; TODO confirm this is correct
 (use-package! org-roam
-      :after org
-      :hook (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/org/roam")
-      (org-roam-link-representation 'title))
+  :after org
+  :hook (after-init . org-roam-mode)
+  :config
+  (setq org-roam-directory "~/org/roam"))
 
-(setq org-roam-graph-node-shape "note")
 
 (setq bibtex-completion-bibliography
       '("~/org/bib/academic.bib"
@@ -71,11 +69,12 @@
                                         ; add pandoc-mode, though hopefully a module will get added to doom in time
                                         ; https://github.com/Guillawme/doom.d
 
+;; TODO confirm this is correct
 (use-package! pandoc-mode
   :config
   (setq pandoc-data-dir (concat doom-cache-dir "pandoc-mode"))
   :hook
-  (;; Activate pandoc-mode on top of common text modes.
+;  (;; Activate pandoc-mode on top of common text modes.
    (org-mode markdown-mode text-mode)
    ;; Load default settings file `default.pandoc' in `pandoc-data-dir'.
    (pandoc-mode . pandoc-load-default-settings)))
