@@ -40,12 +40,17 @@
   :after org
   :init)
 
-;; TODO confirm this is correct
 (use-package! org-roam
-  :after org
-  :hook (after-init . org-roam-mode)
+  :commands (org-roam-insert org-roam-find-file org-roam)
+  :init
+  (setq org-roam-directory "~/org/roam")
+  (map! :leader
+        :prefix "n"
+        :desc "Org-Roam-Insert" "i" #'org-roam-insert
+        :desc "Org-Roam-Find"   "/" #'org-roam-find-file
+        :desc "Org-Roam-Buffer" "r" #'org-roam)
   :config
-  (setq org-roam-directory "~/org/roam"))
+  (org-roam-mode +1))
 
 (setq bibtex-completion-bibliography
       '("~/org/bib/academic.bib"
@@ -147,3 +152,5 @@
 (setq flyspell-correct-popup t)
 
 (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")
+(setq org-html-html5-fancy t)
+(setq org-display-inline-images t)
