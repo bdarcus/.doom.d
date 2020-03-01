@@ -48,6 +48,7 @@
         :prefix "n"
         :desc "Org-Roam-Insert" "i" #'org-roam-insert
         :desc "Org-Roam-Find"   "/" #'org-roam-find-file
+        :desc "Org-Roam-Show-Graph" "g" #'org-roam-show-graph
         :desc "Org-Roam-Buffer" "r" #'org-roam)
   :config
   (org-roam-mode +1))
