@@ -156,6 +156,7 @@
 (setq org-html-html5-fancy t)
 (setq org-display-inline-images t)
 
+; TODO Ideally, I also want this incorporated into org visibility cycling.
 (use-package! origami
   :commands (origami-toggle-node origami-toggle-all-nodes)
 ; :hook (markdown-mode . origami)
