@@ -156,11 +156,13 @@
 (setq org-html-html5-fancy t)
 (setq org-display-inline-images t)
 
+; TODO Is this loading correctly? Should work in any text mode, including org.
 ; TODO Ideally, I also want this incorporated into org visibility cycling.
 (use-package! origami
   :commands (origami-toggle-node origami-toggle-all-nodes)
-; :hook (markdown-mode . origami)
+  :hook (text-mode . origami-mode)
   :init
+  :config
   (map! :leader
         :prefix "t"
         :desc "Origami-Toggle All Nodes" "O" #'origami-toggle-all-nodes
