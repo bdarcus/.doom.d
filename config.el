@@ -75,14 +75,14 @@
                                         ; https://github.com/Guillawme/doom.d
 
 ;; TODO confirm this is correct
-(use-package! pandoc-mode
-  :config
-  (setq pandoc-data-dir (concat doom-cache-dir "pandoc-mode"))
-  :hook
+;(use-package! pandoc-mode
+;  :config
+;  (setq pandoc-data-dir (concat doom-cache-dir "pandoc-mode"))
+;  :hook
 ;  (;; Activate pandoc-mode on top of common text modes.
-   (org-mode markdown-mode text-mode)
+;   (org-mode markdown-mode text-mode)
    ;; Load default settings file `default.pandoc' in `pandoc-data-dir'.
-   (pandoc-mode . pandoc-load-default-settings)))
+;   (pandoc-mode . pandoc-load-default-settings))
 
 
 (setq projectile-project-search-path '("~/Projects/" "~/org"))
@@ -155,3 +155,13 @@
 (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")
 (setq org-html-html5-fancy t)
 (setq org-display-inline-images t)
+
+(use-package! origami
+  :commands (origami-toggle-node origami-toggle-all-nodes)
+; :hook (markdown-mode . origami)
+  :init
+  (map! :leader
+        :prefix "t"
+        :desc "Origami-Toggle All Nodes" "O" #'origami-toggle-all-nodes
+        :desc "Origami-Toggle Node" "o" #'origami-toggle-node)
+  )
