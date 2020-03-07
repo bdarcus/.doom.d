@@ -46,6 +46,12 @@
 (setq deft-recursive t)
 (setq deft-directory "~/org")
 
+
+; TODO this is now working, but it's placing screenshots in ../.attach, which I don't want
+(setq-default org-download-image-dir "~/org/roam/images/"
+              org-download-screenshot-method "xclip -selection clipboard -t image/png -o > %s"
+              org-download-method 'directory)
+
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam)
   :init
