@@ -20,8 +20,10 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;(setq doom-font (font-spec :family "monospace" :size 14))
 (setq doom-font (font-spec :family "monospace" :size 14))
+;(setq doom-font (font-spec :family "Attribute Mono" :size 14))
+;(unless (find-font doom-font)
+;  (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14)))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -62,6 +64,8 @@
         (latex-mode    . bibtex-completion-format-citation-cite)
         (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
         (default       . bibtex-completion-format-citation-default)))
+
+(setq bibtex-completion-notes-path "~/org/roam/biblio")
 
 (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 
