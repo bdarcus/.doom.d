@@ -59,6 +59,8 @@
       '("~/org/bib/academic.bib"
         "~/org/bib/me.bib"))
 
+(setq bibtex-dialect 'biblatex)
+
 (setq bibtex-completion-format-citation-functions
       '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF)
         (latex-mode    . bibtex-completion-format-citation-cite)
