@@ -42,6 +42,10 @@
   :after org
   :init)
 
+(setq deft-extensions '("txt" "tex" "org" "md"))
+(setq deft-recursive t)
+(setq deft-directory "~/org")
+
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam)
   :init
