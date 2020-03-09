@@ -65,6 +65,8 @@
   :config
   (org-roam-mode +1))
 
+(add-hook 'org-roam-backlinks-mode-hook (lambda () (flyspell-mode -1)))
+
 (setq bibtex-completion-bibliography
       '("~/org/bib/academic.bib"
         "~/org/bib/me.bib"))
@@ -169,6 +171,7 @@
 (setq flyspell-correct-popup t)
 
 (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")
+
 (setq org-html-html5-fancy t)
 (setq org-display-inline-images t)
 
