@@ -1,5 +1,5 @@
 (package! org-ref)
-(package! org-roam :recipe (:host github :repo "jethrokuan/org-roam" :branch "develop"))
+(package! org-roam :recipe (:host github :repo "jethrokuan/org-roam"))
 (package! pandoc-mode)
 (package! org-super-agenda)
 (package! org-chef)

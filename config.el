@@ -67,6 +67,10 @@
 
 (add-hook 'org-roam-backlinks-mode-hook (lambda () (flyspell-mode -1)))
 
+(after! (company org-roam)
+  (set-company-backend! 'org-mode
+    '(company-org-roam :with company-dabbrev :with company-yasnippet)))
+
 (setq bibtex-completion-bibliography
       '("~/org/bib/academic.bib"
         "~/org/bib/me.bib"))
@@ -187,3 +191,5 @@
         :desc "Origami-Toggle All Nodes" "O" #'origami-toggle-all-nodes
         :desc "Origami-Toggle Node" "o" #'origami-toggle-node)
   )
+
+(setq org-latex-compiler "lualatex")
