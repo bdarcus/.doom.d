@@ -75,6 +75,11 @@
       '("~/org/bib/academic.bib"
         "~/org/bib/me.bib"))
 
+; TODO: need to install and set this up correctly
+;(setq company-bibtex-bibliography
+;	'("~/org/bib/academic.bib"
+;	  "~org/bib/me.bib"))
+
 (setq bibtex-dialect 'biblatex)
 
 (setq bibtex-completion-format-citation-functions
