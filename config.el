@@ -52,18 +52,7 @@
               org-download-screenshot-method "xclip -selection clipboard -t image/png -o > %s"
               org-download-method 'directory)
 
-(use-package! org-roam
-  :commands (org-roam-insert org-roam-find-file org-roam)
-  :init
-  (setq org-roam-directory "~/org/roam")
-  (map! :leader
-        :prefix "n"
-        :desc "Org-Roam-Insert" "i" #'org-roam-insert
-        :desc "Org-Roam-Find"   "/" #'org-roam-find-file
-        :desc "Org-Roam-Show-Graph" "g" #'org-roam-show-graph
-        :desc "Org-Roam-Buffer" "r" #'org-roam)
-  :config
-  (org-roam-mode +1))
+(setq org-roam-directory "~/org/roam")
 
 (add-hook 'org-roam-backlinks-mode-hook (lambda () (flyspell-mode -1)))
 

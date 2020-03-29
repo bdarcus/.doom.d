@@ -1,5 +1,4 @@
 (package! org-ref)
-(package! org-roam)
 (package! pandoc-mode)
 (package! org-super-agenda)
 (package! org-chef)
