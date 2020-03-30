@@ -55,7 +55,7 @@
 (setq org-roam-directory "~/org/roam")
 (setq org-roam-graphviz-executable "/usr/bin/neato")
 (setq org-roam-graphviz-extra-options '(("overlap" . "false")))
-
+(setq org-roam-graph-node-shape "note")
 
 (add-hook 'org-roam-backlinks-mode-hook (lambda () (flyspell-mode -1)))
 
