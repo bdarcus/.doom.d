@@ -53,6 +53,9 @@
               org-download-method 'directory)
 
 (setq org-roam-directory "~/org/roam")
+(setq org-roam-graphviz-executable "/usr/bin/neato")
+(setq org-roam-graphviz-extra-options '(("overlap" . "false")))
+
 
 (add-hook 'org-roam-backlinks-mode-hook (lambda () (flyspell-mode -1)))
 
