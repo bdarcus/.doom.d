@@ -52,9 +52,13 @@
               org-download-screenshot-method "xclip -selection clipboard -t image/png -o > %s"
               org-download-method 'directory)
 
+; org-roam
 (setq org-roam-directory "~/org/roam")
-(setq org-roam-graphviz-executable "/usr/bin/neato")
-(setq org-roam-graphviz-extra-options '(("overlap" . "false")))
+(setq org-roam-graph-executable "/usr/bin/dot")
+;; TODO the below doesn't fully work; org-roam doesn't yet support node config
+(setq org-roam-graph-extra-config '(("overlap" . "false")
+                                    ("color" . "skyblue")
+                                    ("fontname" . "Fira Sans")))
 (setq org-roam-graph-node-shape "note")
 
 (add-hook 'org-roam-backlinks-mode-hook (lambda () (flyspell-mode -1)))
