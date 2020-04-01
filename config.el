@@ -56,7 +56,8 @@
 (setq org-roam-directory "~/org/roam")
 (setq org-roam-graph-executable "/usr/bin/dot")
 (setq org-roam-graph-extra-config '(("overlap" . "false")))
-(setq org-roam-graph-node-extra-config '(("color" . "skyblue")
+(setq org-roam-graph-node-extra-config '(("style" . "filled")
+                                         ("fillcolor" . "skyblue")
                                          ("shape" . "note")
                                          ("fontname" . "Fira Sans")))
 
