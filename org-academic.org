@@ -103,8 +103,11 @@ constructing a graph, and you want to avoid premature or unnecessary hierarchy.
 Current thought is that projects emerge up out of the braindump, something like:
 
 1. first develop structure notes that are the outline of the ideas, where the
-   outline is mostly import statements for existing notes
+   outline is mostly import statements for existing notes (see below example)
 2. export that outline note to a consolidated org file, in a dedicated
    ~/Projects directory.
 3. develop manuscript there, outside of the braindump
 
+#+BEGIN_EXAMPLE
+#+INCLUDE: "~/my-book/chapter2.org" :minlevel 1
+#+END_EXAMPLE
