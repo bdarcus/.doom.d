@@ -72,6 +72,16 @@ While I still use Zotero to grab citation data, I export that content to a singl
 (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 #+END_SRC
 
+Now adding a binding to bring up ivy-bibtex for citation insertion
+
+#+BEGIN_SRC elisp
+(map!
+ :map (markdown-mode-map)
+ :localleader
+ :desc "insert citation" "ic" #'ivy-bibtex)
+#+END_SRC
+
+
 ** Paragraph Folding
 
 Ideally, I want paragraph folding integrated into org visibility cycling. But
