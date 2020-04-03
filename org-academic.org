@@ -10,11 +10,13 @@ academic note-taking, bibliographic management, writing and publishing.
 Note: I work at the border of the social sciences and humanities. No math or
 statistics, for example, and heavy on quoting of primary source documents.
 
-* Tasks
+* Tasks and Questions
 
 ** TODO review and refine org-ref config
 ** TODO do I want to integrate ebib? if yes, how?
 ** TODO investigate integrating paragraph folding into org visibility cycling
+
+** TODO best relationship between org-ref and org-roam capture?
 
 * Org, Including Bibliographic Integration
 
