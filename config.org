@@ -22,10 +22,6 @@ load it.
 (load! org-academic)
 #+END_SRC
 
-* Publishing
-
-Using a combination of Pandoc, Hugo and (less so) LaTeX.
-
 * Grammar and Spelling
 
 #+BEGIN_SRC elisp
