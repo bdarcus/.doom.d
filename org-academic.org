@@ -103,6 +103,10 @@ line. This is helpful for long documents.
   )
 #+END_SRC
 
+* Publishing
+
+Using a combination of Pandoc, Hugo and (less so) LaTeX.
+
 * Projects
 
 I am currently torn about how project files and directories should relate to
