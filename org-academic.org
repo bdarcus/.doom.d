@@ -1,0 +1,91 @@
+#+TITLE: Doom Academic Config
+#+AUTHOR: Bruce D'Arcus
+
+* Introduction
+
+This is my configuration file for org, org-roam, org-ref, etc in Doom. In it, I
+am trying to stitch together an elegant editing environment, primarily for
+academic note-taking, bibliographic management, writing and publishing.
+
+Note: I work at the border of the social sciences and humanities. No math or
+statistics, for example, and heavy on quoting of primary source documents.
+
+* Tasks
+
+** TODO review and refine org-ref config
+** TODO do I want to integrate ebib? if yes, how?
+** TODO investigate integrating paragraph folding into org visibility cycling
+
+* Org, Including Bibliographic Integration
+
+This is the core of my academic workflow.
+
+Goal: a beautifully-integrated academic note-taking, bibliographic management,
+and manuscript outlining and editing environment.
+
+** Org-Roam
+
+Org-roam is my primary note-taking and idea-development tool.
+
+Doom now has a +roam flag, so there's not much config needed.
+
+#+BEGIN_SRC elisp
+(setq org-roam-directory "~/org/roam")
+(setq org-roam-graph-executable "/usr/bin/dot")
+(setq org-roam-graph-extra-config '(("overlap" . "false")))
+(setq org-roam-graph-node-extra-config '(("style" . "filled")
+                                         ("fillcolor" . "skyblue")
+                                         ("shape" . "note")
+                                         ("fontname" . "Fira Sans")))
+#+END_SRC
+
+
+** Bibliographic Management and Integration
+
+This is the setup for integrating citations in the editing workflow.
+
+First, setup org-ref.
+
+#+BEGIN_SRC elisp
+(use-package! org-ref
+  :after org
+  :init)
+#+END_SRC
+
+While I still use Zotero to grab citation data, I export that content to a single biblatex file.
+
+#+BEGIN_SRC elisp
+(setq bibtex-dialect 'biblatex)
+(setq bibtex-completion-bibliography
+      '("~/org/bib/academic.bib"
+        "~/org/bib/me.bib"))
+#+END_SRC
+
+#+BEGIN_SRC elisp
+(setq bibtex-completion-format-citation-functions
+      '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF)
+        (latex-mode    . bibtex-completion-format-citation-cite)
+        (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
+        (default       . bibtex-completion-format-citation-default)))
+
+(setq bibtex-completion-notes-path "~/org/roam/biblio")
+(setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
+#+END_SRC
+
+* Projects
+
+I am currently torn about how project files and directories should relate to
+org-roam. Typically in editing environments, a project is a folder, and in org,
+a profile file is an org file within that folder.
+
+In zettelkasten, typically directories are flat, since you basically are
+constructing a graph, and you want to avoid premature or unnecessary hierarchy.
+
+Current thought is that projects emerge up out of the braindump, something like:
+
+1. first develop structure notes that are the outline of the ideas, where the
+   outline is mostly import statements for existing notes
+2. export that outline note to a consolidated org file, in a dedicated
+   ~/Projects directory.
+3. develop manuscript there, outside of the braindump
+
