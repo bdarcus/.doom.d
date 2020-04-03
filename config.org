@@ -31,18 +31,7 @@ load it.
 
 * Other
 
-#+BEGIN_SRC elisp
-(use-package! origami
-  :commands (origami-toggle-node origami-toggle-all-nodes)
-  :hook (text-mode . origami-mode)
-  :init
-  :config
-  (map! :leader
-        :prefix "t"
-        :desc "Origami-Toggle All Nodes" "O" #'origami-toggle-all-nodes
-        :desc "Origami-Toggle Node" "o" #'origami-toggle-node)
-  )
-
+#+BEGIN_SRC
 (setq org-latex-compiler "lualatex")
 #+END_SRC
 

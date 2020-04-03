@@ -72,6 +72,25 @@ While I still use Zotero to grab citation data, I export that content to a singl
 (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 #+END_SRC
 
+** Paragraph Folding
+
+Ideally, I want paragraph folding integrated into org visibility cycling. But
+this is close enough for now; folds all paragraphs in a document to the first
+line. This is helpful for long documents.
+
+#+BEGIN_SRC elisp
+(use-package! origami
+  :commands (origami-toggle-node origami-toggle-all-nodes)
+  :hook (text-mode . origami-mode)
+  :init
+  :config
+  (map! :leader
+        :prefix "t"
+        :desc "Origami-Toggle All Nodes" "O" #'origami-toggle-all-nodes
+        :desc "Origami-Toggle Node" "o" #'origami-toggle-node)
+  )
+#+END_SRC
+
 * Projects
 
 I am currently torn about how project files and directories should relate to
