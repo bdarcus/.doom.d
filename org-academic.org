@@ -3,7 +3,7 @@
 
 * Introduction
 
-This is my configuration file for org, org-roam, org-ref, etc in Doom. In it, I
+This is my configuration file for ~org~, ~org-roam~, ~org-ref~, etc in Doom. In it, I
 am trying to stitch together an elegant editing environment, primarily for
 academic note-taking, bibliographic management, writing and publishing.
 
@@ -46,12 +46,67 @@ Doom now has a +roam flag, so there's not much config needed.
 
 This is the setup for integrating citations in the editing workflow.
 
-First, setup org-ref.
+First, setup ~org-ref~, borrowing from [[https://github.com/fuxialexander/doom-emacs-private-xfu/blob/master/modules/tools/reference/config.el][this module]].
+
+Need to fix the capture template to fit with ~org-roam~.
 
 #+BEGIN_SRC elisp
 (use-package! org-ref
-  :after org
-  :init)
+  :commands (org-ref-bibtex-next-entry
+             org-ref-bibtex-previous-entry
+             doi-utils-get-bibtex-entry-pdf
+             org-ref-ivy-insert-cite-link
+             org-ref-find-bibliography
+             org-ref-open-in-browser
+             org-ref-open-bibtex-notes
+             org-ref-open-bibtex-pdf
+             org-ref-bibtex-hydra/body
+             org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
+             org-ref-sort-bibtex-entry
+             arxiv-add-bibtex-entry
+             arxiv-get-pdf-add-bibtex-entry
+             doi-utils-add-bibtex-entry-from-doi
+             isbn-to-bibtex
+             pubmed-insert-bibtex-from-pmid)
+  :init
+  (when (featurep! :completion helm)
+    (setq org-ref-completion-library 'org-ref-helm-bibtex))
+  (when (featurep! :completion ivy)
+    (setq org-ref-completion-library 'org-ref-ivy-cite))
+  :config
+  (setq
+    orhc-bibtex-cache-file (concat doom-cache-dir "org-ref.cache")
+    org-ref-get-pdf-filename-function
+    (lambda (key) (car (bibtex-completion-find-pdf key)))
+    org-ref-notes-function
+    (lambda (thekey)
+      (let* ((results (org-ref-get-bibtex-key-and-file thekey))
+             (key (car results))
+             (bibfile (cdr results)))
+        (save-excursion
+          (with-temp-buffer
+            (insert-file-contents bibfile)
+            (bibtex-set-dialect (parsebib-find-bibtex-dialect) t)
+            (bibtex-search-entry key)
+            (org-ref-open-bibtex-notes)))))
+    org-ref-create-notes-hook
+    '((lambda ()
+        (org-narrow-to-subtree)
+        (insert (format "cite:%s\n" (org-entry-get (point) "CUSTOM_ID")))))
+    org-ref-note-title-format "* TODO %t
+ :PROPERTIES:
+  :CUSTOM_ID: %k
+ :END:
+")
+  (when (eq +reference-field 'bioinfo)
+    (require 'org-ref-biorxiv)
+    (add-to-list 'doi-utils-pdf-url-functions 'oup-pdf-url)
+    (add-to-list 'doi-utils-pdf-url-functions 'bmc-pdf-url)
+    (add-to-list 'doi-utils-pdf-url-functions 'biorxiv-pdf-url))
+  (when IS-MAC
+    (setq doi-utils-pdf-url-functions
+          (delete 'generic-full-pdf-url doi-utils-pdf-url-functions))
+    (add-to-list 'doi-utils-pdf-url-functions 'generic-as-get-pdf-url t)))
 #+END_SRC
 
 While I still use Zotero to grab citation data, I export that content to a single biblatex file.
@@ -74,7 +129,7 @@ While I still use Zotero to grab citation data, I export that content to a singl
 (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 #+END_SRC
 
-Now adding a binding to bring up ivy-bibtex for citation insertion
+Now adding a binding to bring up ~ivy-bibtex~ for citation insertion
 
 #+BEGIN_SRC elisp
 (map!
@@ -85,7 +140,7 @@ Now adding a binding to bring up ivy-bibtex for citation insertion
 
 ** Integration
 
-Org-roam will soon have org-ref support, which will display cite links in the
+~Org-roam~ will soon have ~org-ref~ support, which will display cite links in the
 buffer. To put this all together, we will have two types of notes:
 
 - content notes :: these are org-roam notes with standard links
@@ -94,7 +149,7 @@ buffer. To put this all together, we will have two types of notes:
   id that references the source citekey
 
 As for the workflow to take bibliographic notes, perhaps it is best to start
-from the bib file source record and use org-ref to create the note, using the
+from the bib file source record and use ~org-ref~ to create the note, using the
 citekey as filename? We'll store these in a dedicated subdirectory, though I'm
 not sure if that's necessary.
 
