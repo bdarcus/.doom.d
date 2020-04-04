@@ -93,6 +93,11 @@ buffer. To put this all together, we will have two types of notes:
   content and quotes; within org-roam we designate them by adding a ~#+ROAM_KEY~
   id that references the source citekey
 
+As for the workflow to take bibliographic notes, perhaps it is best to start
+from the bib file source record and use org-ref to create the note, using the
+citekey as filename?
+
+
 ** Paragraph Folding
 
 Ideally, I want paragraph folding integrated into org visibility cycling. But
