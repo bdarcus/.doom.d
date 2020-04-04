@@ -83,6 +83,13 @@ Now adding a binding to bring up ivy-bibtex for citation insertion
  :desc "insert citation" "ic" #'ivy-bibtex)
 #+END_SRC
 
+** Integration
+
+Org-roam will soon have org-ref support, which will display cite links in the
+buffer. To put this all together, we will have two types of notes:
+
+- content notes :: these are org-roam notes with standard links
+- bibliographic notes :: these are org-roam notes with ~#+ROAM_KEY~~ ids
 
 ** Paragraph Folding
 
