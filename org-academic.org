@@ -132,7 +132,8 @@ While I still use Zotero to grab citation data, I export that content to a singl
 (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 #+END_SRC
 
-Now adding a binding to bring up ~ivy-bibtex~ for citation insertion
+Now adding a binding to bring up ~ivy-bibtex~ for citation insertion in
+~markdown-mode~.
 
 #+BEGIN_SRC elisp
 (map!
