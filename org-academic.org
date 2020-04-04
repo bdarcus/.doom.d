@@ -48,7 +48,7 @@ This is the setup for integrating citations in the editing workflow.
 
 First, setup ~org-ref~, borrowing from [[https://github.com/fuxialexander/doom-emacs-private-xfu/blob/master/modules/tools/reference/config.el][this module]].
 
-Need to fix the capture template to fit with ~org-roam~.
+Need to fix the capture template to fit with ~org-roam~, and add key bindings.
 
 #+BEGIN_SRC elisp
 (use-package! org-ref
