@@ -89,7 +89,7 @@ Org-roam will soon have org-ref support, which will display cite links in the
 buffer. To put this all together, we will have two types of notes:
 
 - content notes :: these are org-roam notes with standard links
-- bibliographic notes :: these are org-roam notes with ~#+ROAM_KEY~~ ids
+- bibliographic notes :: these are org-roam notes with ~#+ROAM_KEY~ ids
 
 ** Paragraph Folding
 
