@@ -112,6 +112,14 @@ What I want, per below, is for opening a note in ~org-ref~ to work the same as
     (add-to-list 'doi-utils-pdf-url-functions 'generic-as-get-pdf-url t)))
 #+END_SRC
 
+Key binding config (though not sure this works ATM):
+
+#+BEGIN_SRC elisp
+(:after bibtex
+  :map bibtex-mode-map
+  "s-." #'org-ref-bibtex-hydra/body)
+#+END_SRC
+
 While I still use Zotero to grab citation data, I export that content to a single biblatex file.
 
 #+BEGIN_SRC elisp
