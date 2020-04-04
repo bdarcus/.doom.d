@@ -50,6 +50,9 @@ First, setup ~org-ref~, borrowing from [[https://github.com/fuxialexander/doom-e
 
 Need to fix the capture template to fit with ~org-roam~, and add key bindings.
 
+What I want, per below, is for opening a note in ~org-ref~ to work the same as
+~org-roam-find-file~, creating a new note if it does not exist.
+
 #+BEGIN_SRC elisp
 (use-package! org-ref
   :commands (org-ref-bibtex-next-entry
