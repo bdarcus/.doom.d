@@ -95,8 +95,12 @@ buffer. To put this all together, we will have two types of notes:
 
 As for the workflow to take bibliographic notes, perhaps it is best to start
 from the bib file source record and use org-ref to create the note, using the
-citekey as filename?
+citekey as filename? We'll store these in a dedicated subdirectory, though I'm
+not sure if that's necessary.
 
+#+BEGIN_SRC elisp
+(setq bibtex-completion-notes-path "~/org/roam/biblio")
+#+END_SRC
 
 ** Paragraph Folding
 
