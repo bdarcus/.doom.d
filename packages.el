@@ -12,3 +12,4 @@
 (package! origami)
 ;(package! ebib)
 (unpin! org-roam)
+(package! org-noter)

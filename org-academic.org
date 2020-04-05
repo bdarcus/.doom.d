@@ -107,6 +107,18 @@ Define the ~org-ref~ template to include ~ROAM_KEY~.
 \n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: /${file}\n  :NOTER_PAGE: \n  :end:\n\n")
 #+END_SRC
 
+
+Setup ~org-noter~ to integrate note-taking for PDF documents.
+
+#+BEGIN_SRC elisp
+(use-package! org-noter
+    :after org
+    ; FIXME how to get it to look for citekey-based filenames?
+    :config (setq org-noter-default-notes-file-names '("notes.org")
+                  org-noter-notes-search-path '("~/org/roam/biblio")
+                  org-noter-separate-notes-from-heading t))
+#+END_SRC
+
 Key binding config for bibtex:
 
 #+BEGIN_SRC elisp
