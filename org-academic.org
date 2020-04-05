@@ -12,7 +12,7 @@ statistics, for example, and heavy on quoting of primary source documents.
 
 * Tasks and Questions
 
-** TODO review and refine org-ref config
+** TODO keybindings for org-ref, etc
 ** TODO do I want to integrate ebib? if yes, how?
 ** TODO investigate integrating paragraph folding into org visibility cycling
 
