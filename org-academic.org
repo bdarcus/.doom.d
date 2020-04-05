@@ -55,13 +55,12 @@ What I want, per below, is for opening a note in ~org-ref~ to work the same as
 
 #+BEGIN_SRC elisp
 (use-package! org-ref
-  :after org
+  :after (org ivy-bibtex helm-bibtex)
   :init
   (when (featurep! :completion ivy)
     (setq org-ref-completion-library 'org-ref-ivy-cite))
   (when (featurep! :completion helm)
     (setq org-ref-completion-library 'org-ref-helm-bibtex))
-  :config
   (setq org-ref-notes-directory "~/org/roam/biblio"
         org-ref-default-bibliography '("~/org/bib/academic.bib")
         bibtex-completion-bibliography '("~/org/bib/academic.bib")
@@ -77,12 +76,20 @@ What I want, per below, is for opening a note in ~org-ref~ to work the same as
   :when (featurep! :completion ivy)
   :commands (ivy-bibtex)
   :config
-  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key)
+;  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key)
   (add-to-list 'ivy-re-builders-alist '(ivy-bibtex . ivy--regex-plus)))
 
 (use-package! helm-bibtex
   :when (featurep! :completion helm)
   :commands helm-bibtex)
+
+(setq bibtex-completion-bibliography
+      '("~/org/bib/academic.bib"
+        "~/org/bib/academic-2017.bib"))
+
+(setq bibtex-completion-library-path '("~/org/pdf"))
+(setq bibtex-completion-pdf-field "File")
+(setq bibtex-completion-notes-path "~/org/roam/biblio")
 #+END_SRC
 
 Setup ~org-ref~ to use a single org file per bibliographic entry.
@@ -114,8 +121,8 @@ Setup ~org-noter~ to integrate note-taking for PDF documents.
 (use-package! org-noter
     :after org
     ; FIXME how to get it to look for citekey-based filenames?
-    :config (setq org-noter-default-notes-file-names '("notes.org")
-                  org-noter-notes-search-path '("~/org/roam/biblio")
+    :config (setq org-noter-auto-save-last-location t
+                  org-noter-notes-search-path '("~/org/roam/biblio/")
                   org-noter-separate-notes-from-heading t))
 #+END_SRC
 
@@ -144,8 +151,6 @@ single biblatex file.
         (latex-mode    . bibtex-completion-format-citation-cite)
         (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
         (default       . bibtex-completion-format-citation-default)))
-
-(setq bibtex-completion-notes-path "~/org/roam/biblio")
 #+END_SRC
 
 Now adding a binding to bring up ~ivy-bibtex~ for citation insertion in
