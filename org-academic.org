@@ -46,7 +46,7 @@ Doom now has a +roam flag, so there's not much config needed.
 
 This is the setup for integrating citations in the editing workflow.
 
-First, setup ~ivy/helm-bibtex~ to providing editing integration.
+First, setup ~ivy/helm-bibtex~ to provide editing integration.
 
 #+BEGIN_SRC elisp
 (use-package! ivy-bibtex
