@@ -59,6 +59,8 @@ What I want, per below, is for opening a note in ~org-ref~ to work the same as
   :init
   (when (featurep! :completion ivy)
     (setq org-ref-completion-library 'org-ref-ivy-cite))
+  (when (featurep! :completion helm)
+    (setq org-ref-completion-library 'org-ref-helm-bibtex))
   :config
   (setq org-ref-notes-directory "~/org/roam/biblio"
         org-ref-default-bibliography '("~/org/bib/academic.bib")
@@ -75,12 +77,25 @@ What I want, per below, is for opening a note in ~org-ref~ to work the same as
   :when (featurep! :completion ivy)
   :commands (ivy-bibtex)
   :config
-  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key
-        )
+  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key)
   (add-to-list 'ivy-re-builders-alist '(ivy-bibtex . ivy--regex-plus)))
+
+(use-package! helm-bibtex
+  :when (featurep! :completion helm)
+  :commands helm-bibtex)
 #+END_SRC
 
-Define the capture template to include ~ROAM_KEY~.
+Setup ~org-ref~ to use a single org file per bibliographic entry.
+
+#+BEGIN_SRC elisp
+(setq org-ref-notes-function
+      (lambda (thekey)
+	(let ((bibtex-completion-bibliography (org-ref-find-bibliography)))
+	  (bibtex-completion-edit-notes
+	   (list (car (org-ref-get-bibtex-key-and-file thekey)))))))
+#+END_SRC
+
+Define the ~org-ref~ template to include ~ROAM_KEY~.
 
 #+BEGIN_SRC elisp
 (setq 
@@ -92,18 +107,24 @@ Define the capture template to include ~ROAM_KEY~.
 \n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: /${file}\n  :NOTER_PAGE: \n  :end:\n\n")
 #+END_SRC
 
-Key binding config (though not sure this works ATM):
+Key binding config for bibtex:
 
 #+BEGIN_SRC elisp
-
+(use-package! bibtex
+  :defer t
+  :config
+  (setq bibtex-dialect 'biblatex
+        bibtex-align-at-equal-sign t
+        bibtex-text-indentation 20)
+  (map! :map bibtex-mode-map
+        ; FIXME
+        :localleader
+        (:prefix("o" . "open")
+          :desc "Bibliographic Note" ""))
 #+END_SRC
 
 While I still use Zotero to grab citation data, I export that content to a
 single biblatex file.
-
-#+BEGIN_SRC elisp
-(setq bibtex-dialect 'biblatex)
-#+END_SRC
 
 #+BEGIN_SRC elisp
 (setq bibtex-completion-format-citation-functions
