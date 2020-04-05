@@ -55,62 +55,38 @@ What I want, per below, is for opening a note in ~org-ref~ to work the same as
 
 #+BEGIN_SRC elisp
 (use-package! org-ref
-  :commands (org-ref-bibtex-next-entry
-             org-ref-bibtex-previous-entry
-             doi-utils-get-bibtex-entry-pdf
-             org-ref-ivy-insert-cite-link
-             org-ref-find-bibliography
-             org-ref-open-in-browser
-             org-ref-open-bibtex-notes
-             org-ref-open-bibtex-pdf
-             org-ref-bibtex-hydra/body
-             org-ref-bibtex-hydra/org-ref-bibtex-new-entry/body-and-exit
-             org-ref-sort-bibtex-entry
-             arxiv-add-bibtex-entry
-             arxiv-get-pdf-add-bibtex-entry
-             doi-utils-add-bibtex-entry-from-doi
-             isbn-to-bibtex
-             pubmed-insert-bibtex-from-pmid)
+  :after org
   :init
-  (when (featurep! :completion helm)
-    (setq org-ref-completion-library 'org-ref-helm-bibtex))
   (when (featurep! :completion ivy)
     (setq org-ref-completion-library 'org-ref-ivy-cite))
   :config
-  (setq
-    orhc-bibtex-cache-file (concat doom-cache-dir "org-ref.cache")
-    org-ref-get-pdf-filename-function
-    (lambda (key) (car (bibtex-completion-find-pdf key)))
-    org-ref-notes-function
-    (lambda (thekey)
-      (let* ((results (org-ref-get-bibtex-key-and-file thekey))
-             (key (car results))
-             (bibfile (cdr results)))
-        (save-excursion
-          (with-temp-buffer
-            (insert-file-contents bibfile)
-            (bibtex-set-dialect (parsebib-find-bibtex-dialect) t)
-            (bibtex-search-entry key)
-            (org-ref-open-bibtex-notes)))))
-    org-ref-create-notes-hook
-    '((lambda ()
-        (org-narrow-to-subtree)
-        (insert (format "cite:%s\n" (org-entry-get (point) "CUSTOM_ID")))))
-    org-ref-note-title-format "* TODO %t
- :PROPERTIES:
-  :CUSTOM_ID: %k
- :END:
-")
-  (when (eq +reference-field 'bioinfo)
-    (require 'org-ref-biorxiv)
-    (add-to-list 'doi-utils-pdf-url-functions 'oup-pdf-url)
-    (add-to-list 'doi-utils-pdf-url-functions 'bmc-pdf-url)
-    (add-to-list 'doi-utils-pdf-url-functions 'biorxiv-pdf-url))
-  (when IS-MAC
-    (setq doi-utils-pdf-url-functions
-          (delete 'generic-full-pdf-url doi-utils-pdf-url-functions))
-    (add-to-list 'doi-utils-pdf-url-functions 'generic-as-get-pdf-url t)))
+  ;; Set Bibtex key format
+  (setq org-ref-notes-directory "~/org/roam/biblio"
+        org-ref-default-bibliography '("~/org/bib/academic.bib")
+        bibtex-completion-bibliography '("~/org/bib/academic.bib")
+        bibtex-completion-notes-template-multiple-files
+       "${title} : (${=key=})
+#+ROAM_KEY: cite:${=key=}
+- tags ::
+- keywords :: ${keywords}
+\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: /${file}\n  :NOTER_PAGE: \n  :end:\n\n"
+        bibtex-autokey-year-length 4
+        bibtex-autokey-name-year-separator "-"
+        bibtex-autokey-year-title-separator "-"
+        bibtex-autokey-titleword-separator "-"
+        bibtex-autokey-titlewords 2
+        bibtex-autokey-titlewords-stretch 1
+        bibtex-autokey-titleword-length 5))
+
+(use-package! ivy-bibtex
+  :when (featurep! :completion ivy)
+  :commands (ivy-bibtex)
+  :config
+  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key
+        )
+  (add-to-list 'ivy-re-builders-alist '(ivy-bibtex . ivy--regex-plus)))
 #+END_SRC
+
 
 Key binding config (though not sure this works ATM):
 
@@ -120,13 +96,11 @@ Key binding config (though not sure this works ATM):
   "s-." #'org-ref-bibtex-hydra/body)
 #+END_SRC
 
-While I still use Zotero to grab citation data, I export that content to a single biblatex file.
+While I still use Zotero to grab citation data, I export that content to a
+single biblatex file.
 
 #+BEGIN_SRC elisp
 (setq bibtex-dialect 'biblatex)
-(setq bibtex-completion-bibliography
-      '("~/org/bib/academic.bib"
-        "~/org/bib/me.bib"))
 #+END_SRC
 
 #+BEGIN_SRC elisp
@@ -137,7 +111,6 @@ While I still use Zotero to grab citation data, I export that content to a singl
         (default       . bibtex-completion-format-citation-default)))
 
 (setq bibtex-completion-notes-path "~/org/roam/biblio")
-(setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 #+END_SRC
 
 Now adding a binding to bring up ~ivy-bibtex~ for citation insertion in

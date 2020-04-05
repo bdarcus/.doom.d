@@ -1,4 +1,9 @@
 (package! org-ref)
+(when (featurep! :completion ivy)
+    (package! ivy-bibtex))
+(when (featurep! :completion helm)
+    (package! helm-bibtex))
+
 (package! pandoc-mode)
 (package! org-super-agenda)
 (package! org-chef)
