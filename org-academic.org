@@ -66,20 +66,7 @@ This is the setup for integrating citations in the editing workflow, using ~ivy/
 (setq bibtex-completion-notes-path "~/org/roam/biblio")
 #+END_SRC
 
-Define the ~bibtex-completion~ template to include ~ROAM_KEY~.
-
-#+BEGIN_SRC elisp
-(setq 
-        bibtex-completion-notes-template-multiple-files
-       "${title} : (${=key=})
-,#+ROAM_KEY: cite:${=key=}
-- tags ::
-- keywords :: ${keywords}
-\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: /${file}\n  :NOTER_PAGE: \n  :end:\n\n")
-#+END_SRC
-
-While I still use Zotero to grab citation data, I export that content to a
-single biblatex file.
+Define the citation format to use in different document formats.
 
 #+BEGIN_SRC elisp
 (setq bibtex-completion-format-citation-functions
@@ -98,6 +85,18 @@ Now adding a binding to bring up ~ivy-bibtex~ for citation insertion in
  :map (org-mode-map markdown-mode-map latex-mode-map)
  (:prefix("i" . "insert")
  :desc "Citation" "c" #'ivy-bibtex))
+#+END_SRC
+
+Define the ~bibtex-completion~ template to include ~ROAM_KEY~.
+
+#+BEGIN_SRC elisp
+(setq
+        bibtex-completion-notes-template-multiple-files
+       "${title} : (${=key=})
+,#+ROAM_KEY: cite:${=key=}
+- tags ::
+- keywords :: ${keywords}
+\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: /${file}\n  :NOTER_PAGE: \n  :end:\n\n")
 #+END_SRC
 
 Setting up ~org-ref~, primarily to provide better two-way integration between
