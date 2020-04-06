@@ -51,7 +51,7 @@ This is the setup for integrating citations in the editing workflow, using ~ivy/
   :when (featurep! :completion ivy)
   :commands (ivy-bibtex)
   :config
-;  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key)
+  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key)
   (add-to-list 'ivy-re-builders-alist '(ivy-bibtex . ivy--regex-plus)))
 
 (use-package! helm-bibtex
