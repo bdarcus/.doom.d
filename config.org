@@ -19,7 +19,7 @@ We define the primary academic workflow configuration in a separate file, and
 load it.
 
 #+BEGIN_SRC elisp
-(org-babel-load-file "./org-academic.org")
+(org-babel-load-file "~/.doom.d/org-academic.org")
 #+END_SRC
 
 * Grammar and Spelling
