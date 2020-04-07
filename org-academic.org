@@ -68,7 +68,7 @@ Define the citation format to use in different document formats.
 
 #+BEGIN_SRC elisp
 (setq bibtex-completion-format-citation-functions
-      '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF)
+      '((org-mode      . bibtex-completion-format-citation-pandoc-citeproc)
         (latex-mode    . bibtex-completion-format-citation-cite)
         (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
         (default       . bibtex-completion-format-citation-default)))
