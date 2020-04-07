@@ -41,6 +41,11 @@ Doom now has a +roam flag, so there's not much config needed.
                                          ("fontname" . "Fira Sans")))
 #+END_SRC
 
+Turn-off spell checking on the org-roam buffer.
+
+#+BEGIN_SRC elisp
+(add-hook 'org-roam-backlinks-mode-hook (lambda () (flyspell-mode -1)))
+#+END_SRC
 
 ** Bibliographic Management and Integration
 
