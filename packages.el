@@ -1,9 +1,12 @@
+;;; package.el
+
+
 (package! org-ref)
 (package! org-super-agenda)
 (package! org-chef)
-;(package! golden-ratio)
 (package! org-fancy-priorities)
 (package! origami)
-;(package! ebib)
 (unpin! org-roam)
 (package! org-noter)
+
+;;; packages.el ends here
