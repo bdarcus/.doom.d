@@ -79,7 +79,6 @@ Now adding a binding to bring up ~ivy-bibtex~ for citation insertion in
 
 #+BEGIN_SRC elisp
 (map! :leader
-      ; FIXME
  :map (org-mode-map markdown-mode-map latex-mode-map)
  (:prefix("i" . "insert")
  :desc "Citation" "c" #'ivy-bibtex))
