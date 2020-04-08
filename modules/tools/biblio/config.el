@@ -16,6 +16,7 @@
   :commands helm-bibtex
   :config
   ; modify so that inserting the citation is the default action
+  ; FIXME doesn't work; not sure why
   (helm-delete-action-from-source "Insert BibTeX key" helm-source-bibtex)
   (helm-add-action-to-source "Insert BibTeX key" 'bibtex-completion-insert-key helm-source-bibtex 0)
   (map! :leader
