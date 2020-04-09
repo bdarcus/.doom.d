@@ -23,3 +23,7 @@
     :map (org-mode-map markdown-mode-map latex-mode-map)
     (:prefix("i" . "insert")
     :desc "Citation" "c" #'helm-bibtex)))
+
+; when new org-roam-contrib package is published, turn it on if +roam flag selected on org module
+; (if (featurep! +roam))
+;   (setq org-ref-notes-function "org-roam-extra-org-ref-notes-fn")
