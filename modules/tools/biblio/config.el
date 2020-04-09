@@ -26,4 +26,4 @@
 
 ; when new org-roam-contrib package is published, turn it on if +roam flag selected on org module
 ; (if (featurep! +roam))
-;   (setq org-ref-notes-function "org-roam-extra-org-ref-notes-fn")
+;   (setq org-ref-notes-function #'org-roam-extra-org-ref-notes-fn)
