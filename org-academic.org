@@ -133,7 +133,7 @@ Key binding config for bibtex:
 
 ** Integration
 
-~Org-roam~ will soon have ~org-ref~ support, which will display cite links in the
+~Org-roam~ has ~org-ref~ support, which will display cite links in the
 buffer. To put this all together, we will have two types of notes:
 
 - content notes :: these are org-roam notes with standard links
