@@ -141,6 +141,14 @@ buffer. To put this all together, we will have two types of notes:
   content and quotes; within org-roam we designate them by adding a ~#+ROAM_KEY~
   id that references the source citekey
 
+The ~org-roam-bibtex~ package facilitates this integration.
+
+#+BEGIN_SRC elisp
+(use-package! org-roam-bibtex
+  :config
+  (org-roam-bibtex-mode))
+#+END_SRC
+
 ** Paragraph Folding
 
 Ideally, I want paragraph folding integrated into org visibility cycling. But

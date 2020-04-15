@@ -8,5 +8,6 @@
 (package! origami)
 (unpin! org-roam)
 (package! org-noter)
-
+(package! org-roam-bibtex :recipe
+  (:host github :repo "Zaeph/org-roam-bibtex"))
 ;;; packages.el ends here
