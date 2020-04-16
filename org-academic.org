@@ -7,16 +7,13 @@ This is my configuration file for ~org~, ~org-roam~, ~org-ref~, etc in Doom. In 
 am trying to stitch together an elegant editing environment, primarily for
 academic note-taking, bibliographic management, writing and publishing.
 
-Note: I work at the border of the social sciences and humanities. No math or
-statistics, for example, and heavy on quoting of primary source documents.
+Most of the core of the initial thinking here is now implemented in the Doom 
+~biblio~ module, so you can get it working with the following modules and flags on 
+the init.el file.
 
-* Tasks and Questions
-
-** TODO keybindings for org-ref, etc
-** TODO do I want to integrate ebib? if yes, how?
-** TODO investigate integrating paragraph folding into org visibility cycling
-
-** TODO best relationship between org-ref and org-roam capture?
+- :completion ivy or helm
+- :lang org (+roam +noter)
+- :tools biblio
 
 * Org, Including Bibliographic Integration
 
@@ -29,7 +26,7 @@ and manuscript outlining and editing environment.
 
 Org-roam is my primary note-taking and idea-development tool.
 
-Doom now has a +roam flag, so there's not much config needed.
+Doom has a +roam flag, so there's not much config needed.
 
 #+BEGIN_SRC elisp
 (setq org-roam-directory "~/org/roam")
@@ -51,6 +48,9 @@ Turn-off spell checking on the org-roam buffer.
 
 This is the setup for integrating citations in the editing workflow, using ~ivy/helm-bibtex~.
 
+The modules and flags noted above will get all this up with reasonable 
+defaults. This simply customizes them.
+
 #+BEGIN_SRC elisp
 (setq bibtex-completion-bibliography "~/org/bib/academic.bib")
 (setq bibtex-completion-library-path "~/org/pdf")
@@ -68,41 +68,6 @@ Define the citation format to use in different document formats.
         (default       . bibtex-completion-format-citation-default)))
 #+END_SRC
 
-Define the ~bibtex-completion~ template to include ~ROAM_KEY~.
-
-#+BEGIN_SRC elisp
-(setq
-        bibtex-completion-notes-template-multiple-files
-       "${title} : (${=key=})
-,#+ROAM_KEY: cite:${=key=}
-- tags ::
-- keywords :: ${keywords}
-\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: /${file}\n  :NOTER_PAGE: \n  :end:\n\n")
-#+END_SRC
-
-Setting up ~org-ref~, primarily to provide better two-way integration between
-~org~ and ~org-roam~ and bibliographic entries.
-
-#+BEGIN_SRC elisp
-(use-package! org-ref
-  :after (org ivy-bibtex helm-bibtex)
-  :init
-  (when (featurep! :completion ivy)
-    (setq org-ref-completion-library 'org-ref-ivy-cite))
-  (when (featurep! :completion helm)
-    (setq org-ref-completion-library 'org-ref-helm-bibtex))
-  (setq org-ref-notes-directory "~/org/roam/biblio"
-        org-ref-default-bibliography '("~/org/bib/academic.bib")
-        bibtex-completion-bibliography '("~/org/bib/academic.bib")
-        bibtex-autokey-year-length 4
-        bibtex-autokey-name-year-separator "-"
-        bibtex-autokey-year-title-separator "-"
-        bibtex-autokey-titleword-separator "-"
-        bibtex-autokey-titlewords 3
-        bibtex-autokey-titlewords-stretch 1
-        bibtex-autokey-titleword-length 5))
-#+END_SRC
-
 Setup ~org-noter~ to integrate note-taking for PDF documents.
 
 #+BEGIN_SRC elisp
@@ -114,23 +79,6 @@ Setup ~org-noter~ to integrate note-taking for PDF documents.
                   org-noter-separate-notes-from-heading t))
 #+END_SRC
 
-Key binding config for bibtex:
-
-#+BEGIN_SRC elisp
-(use-package! bibtex
-  :defer t
-  :config
-  (setq bibtex-dialect 'biblatex
-        bibtex-align-at-equal-sign t
-        bibtex-text-indentation 20)
-  (map! :map bibtex-mode-map
-        ; FIXME
-        :localleader
-        (:prefix("o" . "open")
-          :desc "Bibliographic Note" ""))
-#+END_SRC
-
-
 ** Integration
 
 ~Org-roam~ has ~org-ref~ support, which will display cite links in the
@@ -141,13 +89,8 @@ buffer. To put this all together, we will have two types of notes:
   content and quotes; within org-roam we designate them by adding a ~#+ROAM_KEY~
   id that references the source citekey
 
-The ~org-roam-bibtex~ package facilitates this integration.
-
-#+BEGIN_SRC elisp
-(use-package! org-roam-bibtex
-  :config
-  (org-roam-bibtex-mode))
-#+END_SRC
+The ~org-roam-bibtex~ package facilitates this integration, and is included in 
+the ~biblio~ module.
 
 ** Paragraph Folding
 
