@@ -10,14 +10,6 @@ academic note-taking, bibliographic management, writing and publishing.
 Note: I work at the border of the social sciences and humanities. No math or
 statistics, for example, and heavy on quoting of primary source documents.
 
-* Tasks and Questions
-
-** TODO keybindings for org-ref, etc
-** TODO do I want to integrate ebib? if yes, how?
-** TODO investigate integrating paragraph folding into org visibility cycling
-
-** TODO best relationship between org-ref and org-roam capture?
-
 * Org, Including Bibliographic Integration
 
 This is the core of my academic workflow.
@@ -106,12 +98,9 @@ Setting up ~org-ref~, primarily to provide better two-way integration between
 Setup ~org-noter~ to integrate note-taking for PDF documents.
 
 #+BEGIN_SRC elisp
-(use-package! org-noter
-    :after org
-    ; FIXME how to get it to look for citekey-based filenames?
-    :config (setq org-noter-auto-save-last-location t
-                  org-noter-notes-search-path '("~/org/roam/biblio/")
-                  org-noter-separate-notes-from-heading t))
+(setq org-noter-auto-save-last-location t
+      org-noter-notes-search-path '("~/org/roam/biblio/")
+      org-noter-separate-notes-from-heading t))
 #+END_SRC
 
 Key binding config for bibtex:

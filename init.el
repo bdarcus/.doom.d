@@ -105,7 +105,7 @@
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
-       biblio              ; my minimal biblio module
+       biblio              ; manage and access bibliographic entries
 
        :lang
        ;;agda              ; types of types of types of types...
@@ -148,6 +148,7 @@
         +dragndrop       ; drag & drop files/images into org buffers
         +hugo            ; use Emacs for hugo blogging
         ;;+jupyter        ; ipython/jupyter support for babel
+        +noter
         +pandoc          ; export-with-pandoc support
         +pomodoro        ; be fruitful with the tomato technique
         +present
