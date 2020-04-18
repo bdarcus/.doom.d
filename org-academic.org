@@ -44,10 +44,9 @@ Turn-off spell checking on the org-roam buffer.
 This is the setup for integrating citations in the editing workflow, using ~ivy/helm-bibtex~.
 
 #+BEGIN_SRC elisp
-(setq bibtex-completion-bibliography "~/org/bib/academic.bib")
-(setq bibtex-completion-library-path "~/org/pdf")
-(setq bibtex-completion-pdf-field "File")
-(setq bibtex-completion-notes-path "~/org/roam/biblio")
+(after! bibtex-completion
+  (setq bibtex-completion-bibliography "~/org/bib/academic.bib")
+  (setq bibtex-completion-library-path "~/org/pdf"))
 #+END_SRC
 
 Define the citation format to use in different document formats.
