@@ -1,0 +1,1629 @@
+default namespace = "http://purl.org/net/xbiblio/csl"
+
+start = style | style_2 | locale
+style =
+  element style {
+    attribute class { "in-text" | "note" },
+    attribute default-locale { xsd:language }?,
+    attribute demote-non-dropping-particle {
+      "never" | "sort-only" | "display-and-sort"
+    }?,
+    attribute initialize-with-hyphen { xsd:boolean }?,
+    attribute page-range-format {
+      "chicago" | "expanded" | "minimal" | "minimal-two"
+    }?,
+    attribute names-delimiter { text }?,
+    attribute and { "text" | "symbol" }?,
+    attribute delimiter-precedes-et-al {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute delimiter-precedes-last {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute et-al-min { xsd:integer }?,
+    attribute et-al-use-first { xsd:integer }?,
+    attribute et-al-subsequent-min { xsd:integer }?,
+    attribute et-al-subsequent-use-first { xsd:integer }?,
+    attribute et-al-use-last { xsd:boolean }?,
+    attribute initialize { xsd:boolean }?,
+    attribute initialize-with { text }?,
+    attribute name-as-sort-order { "first" | "all" }?,
+    attribute sort-separator { text }?,
+    attribute name-delimiter { text }?,
+    attribute name-form { "long" | "short" | "count" }?,
+    attribute version { "1.0" },
+    info,
+    (locale_2* & macro* & citation & bibliography?)
+  }
+style_2 =
+  element style {
+    attribute default-locale { xsd:language }?,
+    attribute version { "1.0" },
+    info_2,
+    attribute class { "in-text" | "note" }?,
+    attribute demote-non-dropping-particle {
+      "never" | "sort-only" | "display-and-sort"
+    }?,
+    attribute initialize-with-hyphen { xsd:boolean }?,
+    attribute page-range-format {
+      "chicago" | "expanded" | "minimal" | "minimal-two"
+    }?,
+    attribute names-delimiter { text }?,
+    attribute and { "text" | "symbol" }?,
+    attribute delimiter-precedes-et-al {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute delimiter-precedes-last {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute et-al-min { xsd:integer }?,
+    attribute et-al-use-first { xsd:integer }?,
+    attribute et-al-subsequent-min { xsd:integer }?,
+    attribute et-al-subsequent-use-first { xsd:integer }?,
+    attribute et-al-use-last { xsd:boolean }?,
+    attribute initialize { xsd:boolean }?,
+    attribute initialize-with { text }?,
+    attribute name-as-sort-order { "first" | "all" }?,
+    attribute sort-separator { text }?,
+    attribute name-delimiter { text }?,
+    attribute name-form { "long" | "short" | "count" }?
+  }
+locale =
+  element locale {
+    attribute xml:lang { xsd:language },
+    attribute version { "1.0" },
+    info_3?,
+    (style-options & date+ & terms)
+  }
+info =
+  element info {
+    author*
+    & category*
+    & contributor*
+    & id
+    & issn*
+    & eissn?
+    & issnl?
+    & link*
+    & published?
+    & rights?
+    & summary?
+    & title
+    & title-short?
+    & updated
+  }
+locale_2 =
+  element locale {
+    attribute xml:lang { xsd:language }?,
+    (style-options? & date* & terms?)
+  }
+macro =
+  element macro {
+    attribute name { xsd:NMTOKEN },
+    (names | date_2 | label | \text | number | choose | group)+
+  }
+citation =
+  element citation {
+    attribute cite-group-delimiter { text }?,
+    attribute collapse {
+      "citation-number" | "year" | "year-suffix" | "year-suffix-ranged"
+    }?,
+    attribute year-suffix-delimiter { text }?,
+    attribute after-collapse-delimiter { text }?,
+    attribute disambiguate-add-names { xsd:boolean }?,
+    attribute disambiguate-add-givenname { xsd:boolean }?,
+    attribute disambiguate-add-year-suffix { xsd:boolean }?,
+    attribute givenname-disambiguation-rule {
+      "all-names"
+      | "all-names-with-initials"
+      | "primary-name"
+      | "primary-name-with-initials"
+      | "by-cite"
+    }?,
+    attribute near-note-distance { xsd:integer }?,
+    attribute names-delimiter { text }?,
+    attribute and { "text" | "symbol" }?,
+    attribute delimiter-precedes-et-al {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute delimiter-precedes-last {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute et-al-min { xsd:integer }?,
+    attribute et-al-use-first { xsd:integer }?,
+    attribute et-al-subsequent-min { xsd:integer }?,
+    attribute et-al-subsequent-use-first { xsd:integer }?,
+    attribute et-al-use-last { xsd:boolean }?,
+    attribute initialize { xsd:boolean }?,
+    attribute initialize-with { text }?,
+    attribute name-as-sort-order { "first" | "all" }?,
+    attribute sort-separator { text }?,
+    attribute name-delimiter { text }?,
+    attribute name-form { "long" | "short" | "count" }?,
+    sort?,
+    layout
+  }
+bibliography =
+  element bibliography {
+    attribute hanging-indent { xsd:boolean }?,
+    attribute entry-spacing { xsd:nonNegativeInteger }?,
+    attribute line-spacing {
+      xsd:integer { minExclusive = "0" }
+    }?,
+    attribute second-field-align { "flush" | "margin" }?,
+    attribute subsequent-author-substitute { text }?,
+    attribute subsequent-author-substitute-rule {
+      "complete-all"
+      | "complete-each"
+      | "partial-each"
+      | "partial-first"
+    }?,
+    attribute names-delimiter { text }?,
+    attribute and { "text" | "symbol" }?,
+    attribute delimiter-precedes-et-al {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute delimiter-precedes-last {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute et-al-min { xsd:integer }?,
+    attribute et-al-use-first { xsd:integer }?,
+    attribute et-al-subsequent-min { xsd:integer }?,
+    attribute et-al-subsequent-use-first { xsd:integer }?,
+    attribute et-al-use-last { xsd:boolean }?,
+    attribute initialize { xsd:boolean }?,
+    attribute initialize-with { text }?,
+    attribute name-as-sort-order { "first" | "all" }?,
+    attribute sort-separator { text }?,
+    attribute name-delimiter { text }?,
+    attribute name-form { "long" | "short" | "count" }?,
+    sort?,
+    layout_2
+  }
+info_2 =
+  element info {
+    author*
+    & category*
+    & contributor*
+    & id
+    & issn*
+    & eissn?
+    & issnl?
+    & link_2+
+    & published?
+    & rights?
+    & summary?
+    & title
+    & title-short?
+    & updated
+  }
+info_3 = element info { translator* & rights? & updated? }
+style-options =
+  element style-options {
+    attribute limit-day-ordinals-to-day-1 { xsd:boolean }?,
+    attribute punctuation-in-quote { xsd:boolean }?
+  }
+date =
+  element date {
+    attribute form { "text" | "numeric" },
+    attribute delimiter { text }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?,
+    date-part+
+  }
+terms = element terms { term+ }
+author = element author { name & email? & uri? }
+category =
+  element category {
+    attribute citation-format {
+      "author" | "author-date" | "label" | "note" | "numeric"
+    }
+    | attribute field {
+        "anthropology"
+        | "astronomy"
+        | "biology"
+        | "botany"
+        | "chemistry"
+        | "communications"
+        | "engineering"
+        | "generic-base"
+        | "geography"
+        | "geology"
+        | "history"
+        | "humanities"
+        | "law"
+        | "linguistics"
+        | "literature"
+        | "math"
+        | "medicine"
+        | "philosophy"
+        | "physics"
+        | "political_science"
+        | "psychology"
+        | "science"
+        | "social_science"
+        | "sociology"
+        | "theology"
+        | "zoology"
+      }
+  }
+contributor = element contributor { name & email? & uri? }
+id = element id { xsd:anyURI }
+issn =
+  element issn {
+    xsd:string { pattern = "\d{4}\-\d{3}(\d|x|X)" }
+  }
+eissn =
+  element eissn {
+    xsd:string { pattern = "\d{4}\-\d{3}(\d|x|X)" }
+  }
+issnl =
+  element issnl {
+    xsd:string { pattern = "\d{4}\-\d{3}(\d|x|X)" }
+  }
+link =
+  element link {
+    attribute href { xsd:anyURI },
+    attribute rel {
+      "self" | "template" | "documentation" | "independent-parent"
+    },
+    attribute xml:lang { xsd:language }?,
+    text
+  }
+published = element published { xsd:dateTime }
+rights =
+  element rights {
+    attribute license { xsd:anyURI }?,
+    attribute xml:lang { xsd:language }?,
+    text
+  }
+summary =
+  element summary {
+    attribute xml:lang { xsd:language }?,
+    text
+  }
+title =
+  element title {
+    attribute xml:lang { xsd:language }?,
+    text
+  }
+title-short =
+  element title-short {
+    attribute xml:lang { xsd:language }?,
+    text
+  }
+updated = element updated { xsd:dateTime }
+names =
+  element names {
+    attribute variable {
+      list {
+        ("author"
+         | "collection-editor"
+         | "composer"
+         | "container-author"
+         | "director"
+         | "editor"
+         | "editorial-director"
+         | "illustrator"
+         | "interviewer"
+         | "original-author"
+         | "recipient"
+         | "reviewed-author"
+         | "translator")+
+      }
+    },
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute delimiter { text }?,
+    attribute display {
+      "block" | "left-margin" | "right-inline" | "indent"
+    }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    ((name_2?, et-al?) & label_2?),
+    substitute?
+  }
+date_2 =
+  element date {
+    attribute variable {
+      "accessed"
+      | "container"
+      | "event-date"
+      | "issued"
+      | "original-date"
+      | "submitted"
+    },
+    ((attribute date-parts {
+        "year-month-day" | "year-month" | "year"
+      }?,
+      attribute form { "text" | "numeric" },
+      date-part_2*)
+     | (date-part+,
+        attribute delimiter { text }?)),
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute display {
+      "block" | "left-margin" | "right-inline" | "indent"
+    }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?
+  }
+label =
+  element label {
+    attribute variable {
+      "chapter-number"
+      | "collection-number"
+      | "edition"
+      | "issue"
+      | "number"
+      | "number-of-pages"
+      | "number-of-volumes"
+      | "volume"
+      | "locator"
+      | "page"
+    },
+    attribute form { "long" | "short" | "symbol" }?,
+    attribute plural { "always" | "never" | "contextual" }?,
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute strip-periods { xsd:boolean }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?
+  }
+\text =
+  element text {
+    (attribute macro { xsd:NMTOKEN }
+     | (attribute term {
+          "month-01"
+          | "month-02"
+          | "month-03"
+          | "month-04"
+          | "month-05"
+          | "month-06"
+          | "month-07"
+          | "month-08"
+          | "month-09"
+          | "month-10"
+          | "month-11"
+          | "month-12"
+          | "chapter-number"
+          | "collection-number"
+          | "edition"
+          | "number"
+          | "number-of-pages"
+          | "number-of-volumes"
+          | "issue"
+          | "volume"
+          | xsd:string { pattern = "ordinal(-\d{2})?" }
+          | "long-ordinal-01"
+          | "long-ordinal-02"
+          | "long-ordinal-03"
+          | "long-ordinal-04"
+          | "long-ordinal-05"
+          | "long-ordinal-06"
+          | "long-ordinal-07"
+          | "long-ordinal-08"
+          | "long-ordinal-09"
+          | "long-ordinal-10"
+          | "book"
+          | "chapter"
+          | "column"
+          | "figure"
+          | "folio"
+          | "line"
+          | "note"
+          | "opus"
+          | "page"
+          | "paragraph"
+          | "part"
+          | "section"
+          | "verse"
+          | "issue"
+          | "volume"
+          | "sub verbo"
+          | "author"
+          | "collection-editor"
+          | "composer"
+          | "container-author"
+          | "director"
+          | "editor"
+          | "editorial-director"
+          | "illustrator"
+          | "interviewer"
+          | "original-author"
+          | "recipient"
+          | "reviewed-author"
+          | "translator"
+          | "editortranslator"
+          | "accessed"
+          | "ad"
+          | "and"
+          | "and others"
+          | "anonymous"
+          | "at"
+          | "available at"
+          | "bc"
+          | "by"
+          | "circa"
+          | "cited"
+          | "et-al"
+          | "forthcoming"
+          | "from"
+          | "ibid"
+          | "in"
+          | "in press"
+          | "internet"
+          | "interview"
+          | "letter"
+          | "no date"
+          | "online"
+          | "presented at"
+          | "reference"
+          | "retrieved"
+          | "scale"
+          | "version"
+          | "open-quote"
+          | "close-quote"
+          | "open-inner-quote"
+          | "close-inner-quote"
+          | "page-range-delimiter"
+          | "season-01"
+          | "season-02"
+          | "season-03"
+          | "season-04"
+          | "anthropology"
+          | "astronomy"
+          | "biology"
+          | "botany"
+          | "chemistry"
+          | "communications"
+          | "engineering"
+          | "generic-base"
+          | "geography"
+          | "geology"
+          | "history"
+          | "humanities"
+          | "law"
+          | "linguistics"
+          | "literature"
+          | "math"
+          | "medicine"
+          | "philosophy"
+          | "physics"
+          | "political_science"
+          | "psychology"
+          | "science"
+          | "social_science"
+          | "sociology"
+          | "theology"
+          | "zoology"
+        },
+        attribute form {
+          "long" | "verb" | "short" | "verb-short" | "symbol"
+        }?,
+        attribute plural { xsd:boolean }?)
+     | attribute value { text }
+     | (attribute variable {
+          "chapter-number"
+          | "collection-number"
+          | "edition"
+          | "issue"
+          | "number"
+          | "number-of-pages"
+          | "number-of-volumes"
+          | "volume"
+          | "abstract"
+          | "annote"
+          | "archive"
+          | "archive_location"
+          | "archive-place"
+          | "authority"
+          | "call-number"
+          | "citation-label"
+          | "citation-number"
+          | "collection-title"
+          | "container-title"
+          | "container-title-short"
+          | "dimensions"
+          | "DOI"
+          | "event"
+          | "event-place"
+          | "first-reference-note-number"
+          | "genre"
+          | "ISBN"
+          | "ISSN"
+          | "jurisdiction"
+          | "keyword"
+          | "locator"
+          | "medium"
+          | "note"
+          | "original-publisher"
+          | "original-publisher-place"
+          | "original-title"
+          | "page"
+          | "page-first"
+          | "PMID"
+          | "PMCID"
+          | "publisher"
+          | "publisher-place"
+          | "references"
+          | "reviewed-title"
+          | "scale"
+          | "section"
+          | "source"
+          | "status"
+          | "title"
+          | "title-short"
+          | "URL"
+          | "version"
+          | "year-suffix"
+        },
+        attribute form { "short" | "long" }?)),
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute display {
+      "block" | "left-margin" | "right-inline" | "indent"
+    }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute quotes { xsd:boolean }?,
+    attribute strip-periods { xsd:boolean }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?
+  }
+number =
+  element number {
+    attribute variable {
+      "chapter-number"
+      | "collection-number"
+      | "edition"
+      | "issue"
+      | "number"
+      | "number-of-pages"
+      | "number-of-volumes"
+      | "volume"
+    },
+    attribute form {
+      "numeric" | "ordinal" | "long-ordinal" | "roman"
+    }?,
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute display {
+      "block" | "left-margin" | "right-inline" | "indent"
+    }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?
+  }
+choose = element choose { if, else-if*, else? }
+group =
+  element group {
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute delimiter { text }?,
+    attribute display {
+      "block" | "left-margin" | "right-inline" | "indent"
+    }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    (names | date_2 | label | \text | number | choose | group)+
+  }
+sort = element sort { key+ }
+layout =
+  element layout {
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute delimiter { text }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    (names | date_2 | label | \text | number | choose | group)+
+  }
+layout_2 =
+  element layout {
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    (names | date_2 | label | \text | number | choose | group)+
+  }
+link_2 =
+  element link {
+    attribute href { xsd:anyURI },
+    attribute rel {
+      "self" | "independent-parent" | "documentation" | "template"
+    },
+    attribute xml:lang { xsd:language }?,
+    text
+  }
+translator = element translator { name & email? & uri? }
+date-part =
+  element date-part {
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?,
+    ((attribute name { "day" },
+      attribute form {
+        "numeric" | "numeric-leading-zeros" | "ordinal"
+      }?,
+      attribute range-delimiter { text }?)
+     | (attribute name { "month" },
+        attribute form {
+          "long" | "short" | "numeric" | "numeric-leading-zeros"
+        }?,
+        attribute range-delimiter { text }?,
+        attribute strip-periods { xsd:boolean }?)
+     | (attribute name { "year" },
+        attribute form { "short" | "long" }?,
+        attribute range-delimiter { text }?))
+  }
+term =
+  element term {
+    ((attribute name {
+        "month-01"
+        | "month-02"
+        | "month-03"
+        | "month-04"
+        | "month-05"
+        | "month-06"
+        | "month-07"
+        | "month-08"
+        | "month-09"
+        | "month-10"
+        | "month-11"
+        | "month-12"
+        | "chapter-number"
+        | "collection-number"
+        | "edition"
+        | "number"
+        | "number-of-pages"
+        | "number-of-volumes"
+        | "issue"
+        | "volume"
+        | xsd:string { pattern = "ordinal(-\d{2})?" }
+        | "long-ordinal-01"
+        | "long-ordinal-02"
+        | "long-ordinal-03"
+        | "long-ordinal-04"
+        | "long-ordinal-05"
+        | "long-ordinal-06"
+        | "long-ordinal-07"
+        | "long-ordinal-08"
+        | "long-ordinal-09"
+        | "long-ordinal-10"
+        | "book"
+        | "chapter"
+        | "column"
+        | "figure"
+        | "folio"
+        | "line"
+        | "note"
+        | "opus"
+        | "page"
+        | "paragraph"
+        | "part"
+        | "section"
+        | "verse"
+        | "issue"
+        | "volume"
+        | "sub verbo"
+        | "author"
+        | "collection-editor"
+        | "composer"
+        | "container-author"
+        | "director"
+        | "editor"
+        | "editorial-director"
+        | "illustrator"
+        | "interviewer"
+        | "original-author"
+        | "recipient"
+        | "reviewed-author"
+        | "translator"
+        | "editortranslator"
+        | "accessed"
+        | "ad"
+        | "and"
+        | "and others"
+        | "anonymous"
+        | "at"
+        | "available at"
+        | "bc"
+        | "by"
+        | "circa"
+        | "cited"
+        | "et-al"
+        | "forthcoming"
+        | "from"
+        | "ibid"
+        | "in"
+        | "in press"
+        | "internet"
+        | "interview"
+        | "letter"
+        | "no date"
+        | "online"
+        | "presented at"
+        | "reference"
+        | "retrieved"
+        | "scale"
+        | "version"
+        | "open-quote"
+        | "close-quote"
+        | "open-inner-quote"
+        | "close-inner-quote"
+        | "page-range-delimiter"
+        | "season-01"
+        | "season-02"
+        | "season-03"
+        | "season-04"
+        | "anthropology"
+        | "astronomy"
+        | "biology"
+        | "botany"
+        | "chemistry"
+        | "communications"
+        | "engineering"
+        | "generic-base"
+        | "geography"
+        | "geology"
+        | "history"
+        | "humanities"
+        | "law"
+        | "linguistics"
+        | "literature"
+        | "math"
+        | "medicine"
+        | "philosophy"
+        | "physics"
+        | "political_science"
+        | "psychology"
+        | "science"
+        | "social_science"
+        | "sociology"
+        | "theology"
+        | "zoology"
+      },
+      attribute form {
+        "long" | "verb" | "short" | "verb-short" | "symbol"
+      }?)
+     | (attribute name {
+          xsd:string { pattern = "ordinal(-\d{2})?" }
+        },
+        attribute form { "long" }?,
+        attribute gender-form { "masculine" | "feminine" }?,
+        attribute match {
+          "last-digit" | "last-two-digits" | "whole-number"
+        }?)
+     | (attribute name {
+          "long-ordinal-01"
+          | "long-ordinal-02"
+          | "long-ordinal-03"
+          | "long-ordinal-04"
+          | "long-ordinal-05"
+          | "long-ordinal-06"
+          | "long-ordinal-07"
+          | "long-ordinal-08"
+          | "long-ordinal-09"
+          | "long-ordinal-10"
+        },
+        attribute form { "long" }?,
+        attribute gender-form { "masculine" | "feminine" })
+     | (attribute name {
+          "month-01"
+          | "month-02"
+          | "month-03"
+          | "month-04"
+          | "month-05"
+          | "month-06"
+          | "month-07"
+          | "month-08"
+          | "month-09"
+          | "month-10"
+          | "month-11"
+          | "month-12"
+          | "chapter-number"
+          | "collection-number"
+          | "edition"
+          | "number"
+          | "number-of-pages"
+          | "number-of-volumes"
+          | "issue"
+          | "volume"
+        },
+        attribute form { "long" }?,
+        attribute gender { "masculine" | "feminine" })),
+    (text | (single, multiple))
+  }
+name = element name { text }
+email = element email { text }
+uri = element uri { xsd:anyURI }
+name_2 =
+  element name {
+    attribute and { "text" | "symbol" }?,
+    attribute delimiter-precedes-et-al {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute delimiter-precedes-last {
+      "contextual" | "always" | "never" | "after-inverted-name"
+    }?,
+    attribute et-al-min { xsd:integer }?,
+    attribute et-al-use-first { xsd:integer }?,
+    attribute et-al-subsequent-min { xsd:integer }?,
+    attribute et-al-subsequent-use-first { xsd:integer }?,
+    attribute et-al-use-last { xsd:boolean }?,
+    attribute initialize { xsd:boolean }?,
+    attribute initialize-with { text }?,
+    attribute name-as-sort-order { "first" | "all" }?,
+    attribute sort-separator { text }?,
+    attribute form { "long" | "short" | "count" }?,
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute delimiter { text }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    name-part*
+  }
+et-al =
+  element et-al {
+    attribute term { "et-al" | "and others" }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute prefix { text }?,
+    attribute suffix { text }?
+  }
+label_2 =
+  element label {
+    attribute form {
+      "long" | "verb" | "short" | "verb-short" | "symbol"
+    }?,
+    attribute plural { "always" | "never" | "contextual" }?,
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute strip-periods { xsd:boolean }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?
+  }
+substitute =
+  element substitute {
+    (names_2
+     | names
+     | date_2
+     | label
+     | \text
+     | number
+     | choose
+     | group)+
+  }
+date-part_2 =
+  element date-part {
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?,
+    ((attribute name { "day" },
+      attribute form {
+        "numeric" | "numeric-leading-zeros" | "ordinal"
+      }?,
+      attribute range-delimiter { text }?)
+     | (attribute name { "month" },
+        attribute form {
+          "long" | "short" | "numeric" | "numeric-leading-zeros"
+        }?,
+        attribute range-delimiter { text }?,
+        attribute strip-periods { xsd:boolean }?)
+     | (attribute name { "year" },
+        attribute form { "short" | "long" }?,
+        attribute range-delimiter { text }?))
+  }
+if =
+  element if {
+    (attribute disambiguate { "true" }
+     | attribute is-numeric {
+         list {
+           ("accessed"
+            | "container"
+            | "event-date"
+            | "issued"
+            | "original-date"
+            | "submitted"
+            | "author"
+            | "collection-editor"
+            | "composer"
+            | "container-author"
+            | "director"
+            | "editor"
+            | "editorial-director"
+            | "illustrator"
+            | "interviewer"
+            | "original-author"
+            | "recipient"
+            | "reviewed-author"
+            | "translator"
+            | "chapter-number"
+            | "collection-number"
+            | "edition"
+            | "issue"
+            | "number"
+            | "number-of-pages"
+            | "number-of-volumes"
+            | "volume"
+            | "abstract"
+            | "annote"
+            | "archive"
+            | "archive_location"
+            | "archive-place"
+            | "authority"
+            | "call-number"
+            | "citation-label"
+            | "citation-number"
+            | "collection-title"
+            | "container-title"
+            | "container-title-short"
+            | "dimensions"
+            | "DOI"
+            | "event"
+            | "event-place"
+            | "first-reference-note-number"
+            | "genre"
+            | "ISBN"
+            | "ISSN"
+            | "jurisdiction"
+            | "keyword"
+            | "locator"
+            | "medium"
+            | "note"
+            | "original-publisher"
+            | "original-publisher-place"
+            | "original-title"
+            | "page"
+            | "page-first"
+            | "PMID"
+            | "PMCID"
+            | "publisher"
+            | "publisher-place"
+            | "references"
+            | "reviewed-title"
+            | "scale"
+            | "section"
+            | "source"
+            | "status"
+            | "title"
+            | "title-short"
+            | "URL"
+            | "version"
+            | "year-suffix")+
+         }
+       }
+     | attribute is-uncertain-date {
+         list {
+           ("accessed"
+            | "container"
+            | "event-date"
+            | "issued"
+            | "original-date"
+            | "submitted")+
+         }
+       }
+     | attribute locator {
+         list {
+           ("book"
+            | "chapter"
+            | "column"
+            | "figure"
+            | "folio"
+            | "line"
+            | "note"
+            | "opus"
+            | "page"
+            | "paragraph"
+            | "part"
+            | "section"
+            | "verse"
+            | "issue"
+            | "volume"
+            | "sub-verbo")+
+         }
+       }
+     | attribute position {
+         list {
+           ("first"
+            | "subsequent"
+            | "ibid"
+            | "ibid-with-locator"
+            | "near-note")+
+         }
+       }
+     | attribute type {
+         list {
+           ("article"
+            | "article-journal"
+            | "article-magazine"
+            | "article-newspaper"
+            | "bill"
+            | "book"
+            | "broadcast"
+            | "chapter"
+            | "dataset"
+            | "entry"
+            | "entry-dictionary"
+            | "entry-encyclopedia"
+            | "figure"
+            | "graphic"
+            | "interview"
+            | "legal_case"
+            | "legislation"
+            | "manuscript"
+            | "map"
+            | "motion_picture"
+            | "musical_score"
+            | "pamphlet"
+            | "paper-conference"
+            | "patent"
+            | "personal_communication"
+            | "post"
+            | "post-weblog"
+            | "report"
+            | "review"
+            | "review-book"
+            | "song"
+            | "speech"
+            | "thesis"
+            | "treaty"
+            | "webpage")+
+         }
+       }
+     | attribute variable {
+         list {
+           ("accessed"
+            | "container"
+            | "event-date"
+            | "issued"
+            | "original-date"
+            | "submitted"
+            | "author"
+            | "collection-editor"
+            | "composer"
+            | "container-author"
+            | "director"
+            | "editor"
+            | "editorial-director"
+            | "illustrator"
+            | "interviewer"
+            | "original-author"
+            | "recipient"
+            | "reviewed-author"
+            | "translator"
+            | "chapter-number"
+            | "collection-number"
+            | "edition"
+            | "issue"
+            | "number"
+            | "number-of-pages"
+            | "number-of-volumes"
+            | "volume"
+            | "abstract"
+            | "annote"
+            | "archive"
+            | "archive_location"
+            | "archive-place"
+            | "authority"
+            | "call-number"
+            | "citation-label"
+            | "citation-number"
+            | "collection-title"
+            | "container-title"
+            | "container-title-short"
+            | "dimensions"
+            | "DOI"
+            | "event"
+            | "event-place"
+            | "first-reference-note-number"
+            | "genre"
+            | "ISBN"
+            | "ISSN"
+            | "jurisdiction"
+            | "keyword"
+            | "locator"
+            | "medium"
+            | "note"
+            | "original-publisher"
+            | "original-publisher-place"
+            | "original-title"
+            | "page"
+            | "page-first"
+            | "PMID"
+            | "PMCID"
+            | "publisher"
+            | "publisher-place"
+            | "references"
+            | "reviewed-title"
+            | "scale"
+            | "section"
+            | "source"
+            | "status"
+            | "title"
+            | "title-short"
+            | "URL"
+            | "version"
+            | "year-suffix")+
+         }
+       })+,
+    attribute match { "all" | "any" | "none" }?,
+    (names | date_2 | label | \text | number | choose | group)*
+  }
+else-if =
+  element else-if {
+    (attribute disambiguate { "true" }
+     | attribute is-numeric {
+         list {
+           ("accessed"
+            | "container"
+            | "event-date"
+            | "issued"
+            | "original-date"
+            | "submitted"
+            | "author"
+            | "collection-editor"
+            | "composer"
+            | "container-author"
+            | "director"
+            | "editor"
+            | "editorial-director"
+            | "illustrator"
+            | "interviewer"
+            | "original-author"
+            | "recipient"
+            | "reviewed-author"
+            | "translator"
+            | "chapter-number"
+            | "collection-number"
+            | "edition"
+            | "issue"
+            | "number"
+            | "number-of-pages"
+            | "number-of-volumes"
+            | "volume"
+            | "abstract"
+            | "annote"
+            | "archive"
+            | "archive_location"
+            | "archive-place"
+            | "authority"
+            | "call-number"
+            | "citation-label"
+            | "citation-number"
+            | "collection-title"
+            | "container-title"
+            | "container-title-short"
+            | "dimensions"
+            | "DOI"
+            | "event"
+            | "event-place"
+            | "first-reference-note-number"
+            | "genre"
+            | "ISBN"
+            | "ISSN"
+            | "jurisdiction"
+            | "keyword"
+            | "locator"
+            | "medium"
+            | "note"
+            | "original-publisher"
+            | "original-publisher-place"
+            | "original-title"
+            | "page"
+            | "page-first"
+            | "PMID"
+            | "PMCID"
+            | "publisher"
+            | "publisher-place"
+            | "references"
+            | "reviewed-title"
+            | "scale"
+            | "section"
+            | "source"
+            | "status"
+            | "title"
+            | "title-short"
+            | "URL"
+            | "version"
+            | "year-suffix")+
+         }
+       }
+     | attribute is-uncertain-date {
+         list {
+           ("accessed"
+            | "container"
+            | "event-date"
+            | "issued"
+            | "original-date"
+            | "submitted")+
+         }
+       }
+     | attribute locator {
+         list {
+           ("book"
+            | "chapter"
+            | "column"
+            | "figure"
+            | "folio"
+            | "line"
+            | "note"
+            | "opus"
+            | "page"
+            | "paragraph"
+            | "part"
+            | "section"
+            | "verse"
+            | "issue"
+            | "volume"
+            | "sub-verbo")+
+         }
+       }
+     | attribute position {
+         list {
+           ("first"
+            | "subsequent"
+            | "ibid"
+            | "ibid-with-locator"
+            | "near-note")+
+         }
+       }
+     | attribute type {
+         list {
+           ("article"
+            | "article-journal"
+            | "article-magazine"
+            | "article-newspaper"
+            | "bill"
+            | "book"
+            | "broadcast"
+            | "chapter"
+            | "dataset"
+            | "entry"
+            | "entry-dictionary"
+            | "entry-encyclopedia"
+            | "figure"
+            | "graphic"
+            | "interview"
+            | "legal_case"
+            | "legislation"
+            | "manuscript"
+            | "map"
+            | "motion_picture"
+            | "musical_score"
+            | "pamphlet"
+            | "paper-conference"
+            | "patent"
+            | "personal_communication"
+            | "post"
+            | "post-weblog"
+            | "report"
+            | "review"
+            | "review-book"
+            | "song"
+            | "speech"
+            | "thesis"
+            | "treaty"
+            | "webpage")+
+         }
+       }
+     | attribute variable {
+         list {
+           ("accessed"
+            | "container"
+            | "event-date"
+            | "issued"
+            | "original-date"
+            | "submitted"
+            | "author"
+            | "collection-editor"
+            | "composer"
+            | "container-author"
+            | "director"
+            | "editor"
+            | "editorial-director"
+            | "illustrator"
+            | "interviewer"
+            | "original-author"
+            | "recipient"
+            | "reviewed-author"
+            | "translator"
+            | "chapter-number"
+            | "collection-number"
+            | "edition"
+            | "issue"
+            | "number"
+            | "number-of-pages"
+            | "number-of-volumes"
+            | "volume"
+            | "abstract"
+            | "annote"
+            | "archive"
+            | "archive_location"
+            | "archive-place"
+            | "authority"
+            | "call-number"
+            | "citation-label"
+            | "citation-number"
+            | "collection-title"
+            | "container-title"
+            | "container-title-short"
+            | "dimensions"
+            | "DOI"
+            | "event"
+            | "event-place"
+            | "first-reference-note-number"
+            | "genre"
+            | "ISBN"
+            | "ISSN"
+            | "jurisdiction"
+            | "keyword"
+            | "locator"
+            | "medium"
+            | "note"
+            | "original-publisher"
+            | "original-publisher-place"
+            | "original-title"
+            | "page"
+            | "page-first"
+            | "PMID"
+            | "PMCID"
+            | "publisher"
+            | "publisher-place"
+            | "references"
+            | "reviewed-title"
+            | "scale"
+            | "section"
+            | "source"
+            | "status"
+            | "title"
+            | "title-short"
+            | "URL"
+            | "version"
+            | "year-suffix")+
+         }
+       })+,
+    attribute match { "all" | "any" | "none" }?,
+    (names | date_2 | label | \text | number | choose | group)*
+  }
+else =
+  element else {
+    (names | date_2 | label | \text | number | choose | group)+
+  }
+key =
+  element key {
+    (attribute variable {
+       "accessed"
+       | "container"
+       | "event-date"
+       | "issued"
+       | "original-date"
+       | "submitted"
+       | "author"
+       | "collection-editor"
+       | "composer"
+       | "container-author"
+       | "director"
+       | "editor"
+       | "editorial-director"
+       | "illustrator"
+       | "interviewer"
+       | "original-author"
+       | "recipient"
+       | "reviewed-author"
+       | "translator"
+       | "chapter-number"
+       | "collection-number"
+       | "edition"
+       | "issue"
+       | "number"
+       | "number-of-pages"
+       | "number-of-volumes"
+       | "volume"
+       | "abstract"
+       | "annote"
+       | "archive"
+       | "archive_location"
+       | "archive-place"
+       | "authority"
+       | "call-number"
+       | "citation-label"
+       | "citation-number"
+       | "collection-title"
+       | "container-title"
+       | "container-title-short"
+       | "dimensions"
+       | "DOI"
+       | "event"
+       | "event-place"
+       | "first-reference-note-number"
+       | "genre"
+       | "ISBN"
+       | "ISSN"
+       | "jurisdiction"
+       | "keyword"
+       | "locator"
+       | "medium"
+       | "note"
+       | "original-publisher"
+       | "original-publisher-place"
+       | "original-title"
+       | "page"
+       | "page-first"
+       | "PMID"
+       | "PMCID"
+       | "publisher"
+       | "publisher-place"
+       | "references"
+       | "reviewed-title"
+       | "scale"
+       | "section"
+       | "source"
+       | "status"
+       | "title"
+       | "title-short"
+       | "URL"
+       | "version"
+       | "year-suffix"
+     }
+     | attribute macro { xsd:NMTOKEN }),
+    attribute names-min { xsd:integer }?,
+    attribute names-use-first { xsd:integer }?,
+    attribute names-use-last { xsd:boolean }?,
+    attribute sort { "ascending" | "descending" }?
+  }
+single = element single { text }
+multiple = element multiple { text }
+name-part =
+  element name-part {
+    attribute name { "family" | "given" },
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?,
+    attribute text-case {
+      "lowercase"
+      | "uppercase"
+      | "capitalize-first"
+      | "capitalize-all"
+      | "title"
+      | "sentence"
+    }?
+  }
+names_2 =
+  element names {
+    attribute variable {
+      list {
+        ("author"
+         | "collection-editor"
+         | "composer"
+         | "container-author"
+         | "director"
+         | "editor"
+         | "editorial-director"
+         | "illustrator"
+         | "interviewer"
+         | "original-author"
+         | "recipient"
+         | "reviewed-author"
+         | "translator")+
+      }
+    },
+    attribute prefix { text }?,
+    attribute suffix { text }?,
+    attribute delimiter { text }?,
+    attribute display {
+      "block" | "left-margin" | "right-inline" | "indent"
+    }?,
+    attribute font-style { "italic" | "normal" | "oblique" }?,
+    attribute font-variant { "normal" | "small-caps" }?,
+    attribute font-weight { "normal" | "bold" | "light" }?,
+    attribute text-decoration { "none" | "underline" }?,
+    attribute vertical-align { "baseline" | "sup" | "sub" }?
+  }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <namespace ns="http://www.w3.org/1999/xhtml" uri="xhtml.rnc"/>
+  <documentElement localName="book" uri="docbook.rnc"/>
+  <uri pattern="*.csl" uri="csl.rnc"/>
+  <documentElement localName="style" uri="csl.rnc"/>
+</locatingRules>
