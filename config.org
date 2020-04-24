@@ -25,6 +25,9 @@ load it.
 * Grammar and Spelling
 
 #+BEGIN_SRC elisp
+(add-to-list 'ispell-aspell-dictionary-alist (ispell-aspell-find-dictionary "en_US"))
+(setq ispell-program-name (executable-find "hunspell")
+      ispell-dictionary "en_US")
 (setq flyspell-correct-popup t)
 (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")
 #+END_SRC

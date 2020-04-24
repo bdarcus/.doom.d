@@ -99,25 +99,8 @@ Setup ~org-noter~ to integrate note-taking for PDF documents.
 #+BEGIN_SRC elisp
 (setq org-noter-auto-save-last-location t
       org-noter-notes-search-path '("~/org/roam/biblio/")
-      org-noter-separate-notes-from-heading t))
+      org-noter-separate-notes-from-heading t)
 #+END_SRC
-
-Key binding config for bibtex:
-
-#+BEGIN_SRC elisp
-(use-package! bibtex
-  :defer t
-  :config
-  (setq bibtex-dialect 'biblatex
-        bibtex-align-at-equal-sign t
-        bibtex-text-indentation 20)
-  (map! :map bibtex-mode-map
-        ; FIXME
-        :localleader
-        (:prefix("o" . "open")
-          :desc "Bibliographic Note" ""))
-#+END_SRC
-
 
 ** Integration
 
