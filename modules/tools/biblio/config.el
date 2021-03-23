@@ -57,8 +57,8 @@ In case of directory the path must end with a slash."
 
 ;; use icons for prefix display; would like a little padding on the left
 (setq bibtex-actions-icon
-      `((pdf . (,(all-the-icons-icon-for-file "foo.pdf" :face 'all-the-icons-dred) .
-                ,(all-the-icons-icon-for-file "foo.pdf" :face 'bibtex-actions-icon-dim)))
+      `((pdf . (,(concat " " (all-the-icons-icon-for-file "foo.pdf" :face 'all-the-icons-dred)) .
+                ,(concat " " (all-the-icons-icon-for-file "foo.pdf" :face 'bibtex-actions-icon-dim))))
         (note . (,(all-the-icons-icon-for-file "foo.txt") .
                  ,(all-the-icons-icon-for-file "foo.txt" :face 'bibtex-actions-icon-dim)))
         (link .
