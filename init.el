@@ -78,7 +78,8 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +enchant)    ; tasing you for misspelling mispelling
+       (spell +enchant 
+              +flyspell)   ; tasing you for misspelling mispelling
        grammar             ; tasing grammar mistake every you make
 
        :tools
@@ -141,7 +142,7 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org
-        +roam
+        ;+roam
         +noter
         +journal
         +pandoc)         ; organize your plain life in plain text

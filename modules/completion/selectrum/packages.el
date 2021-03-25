@@ -7,3 +7,4 @@
 (package! consult :pin "70b795e948a52499722c244708db84d1d22f09cf")
 (package! orderless :pin "9d5b95f40275dc47a57e9d4ee9b9994ee3a4b426")
 (package! prescient :pin "8573df977eaceffc6607b7242ff8c0dab02aad65")
+(package! consult-flycheck  :pin "19540d37783dc34bdb98d7cea24e8bb57090dab4")

@@ -40,3 +40,6 @@
 ;; Keybindings for Consult
 (global-set-key (kbd "C-x b") #'consult-buffer)
 
+(use-package! consult-flycheck
+  :bind (:map flycheck-command-map
+              ("!" . consult-flycheck)))
