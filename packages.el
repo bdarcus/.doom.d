@@ -17,8 +17,8 @@
 (package! package-lint)
 (package! flycheck-aspell)
 ; stettberger/ospl-mode
-(when (featurep! :completion selectrum)
-  (package! bibtex-actions :recipe (:local-repo "~/Code/bibtex-actions")))
+
+;  (package! bibtex-actions :recipe (:local-repo "~/Code/bibtex-actions")))
 
 ; 
 (unpin! doom-themes)
@@ -31,6 +31,6 @@
 ;           :branch "interactive-bibtex-completion"
 ;           :files ("bibtex-completion.el")))
 
-;(package! bibtex-actions 
-;  :recipe (:host github :repo "bdarcus/bibtex-actions"))
+(package! bibtex-actions 
+  :recipe (:host github :repo "bdarcus/bibtex-actions"))
 ;  :recipe (:local-repo "~/Code/bibtex-actions"))

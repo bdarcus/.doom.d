@@ -43,8 +43,7 @@ In case of directory the path must end with a slash."
 
 ;;; add this section to biblio module once selectrum module merged
 (use-package! bibtex-actions
-  :when (featurep! :completion selectrum)
-  :after bibtex-completion)
+  :when (featurep! :completion selectrum))
 
 ;; embark
 
@@ -56,7 +55,7 @@ In case of directory the path must end with a slash."
 ;;; local bibtex-actions customzation
 
 ;; use icons for prefix display; would like a little padding on the left
-(setq bibtex-actions-icon
+(setq bibtex-actions-symbols
       `((pdf . (,(concat " " (all-the-icons-icon-for-file "foo.pdf" :face 'all-the-icons-dred)) .
                 ,(concat " " (all-the-icons-icon-for-file "foo.pdf" :face 'bibtex-actions-icon-dim))))
         (note . (,(all-the-icons-icon-for-file "foo.txt") .

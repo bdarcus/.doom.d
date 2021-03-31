@@ -61,13 +61,9 @@
         org-id-link-to-org-use-id t)
   :config
   (org-roam-setup)
-  (require 'org-roam-backlinks)
-  (require 'org-roam-reflinks)
-  (require 'org-roam-unlinked-references)
   (setq org-roam-mode-sections
         (list #'org-roam-backlinks-insert-section
-              #'org-roam-reflinks-insert-section
-              #'org-roam-unlinked-references-insert-section))
+              #'org-roam-reflinks-insert-section))
   (setq display-buffer-alist
         '(;; Left side window
           ("org-roam:.*"
@@ -127,6 +123,24 @@
          :file-name "daily/%<%Y-%m-%d>"
          :head "#+title: %<%Y-%m-%d>\n\n")))
   (set-company-backend! 'org-mode '(company-capf)))
+
+;; org-roam v2 keymap
+
+(defvar my-org-roam-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "t") 'org-roam-buffer-toggle)
+    (define-key map (kbd "i") 'org-roam-node-insert)
+    (define-key map (kbd "f") 'org-roam-node-find)
+    (define-key map (kbd "r") 'org-roam-ref-find)
+    (define-key map (kbd "g") 'org-roam-show-graph)
+    (define-key map (kbd "c") 'org-roam-capture)
+    (define-key map (kbd "j") 'org-roam-dailies-capture-today)
+    map)
+  "Keymap for 'org-roam' v2.")
+
+; make available my-org-roam-map to embark-act
+(add-to-list 'embark-keymap-alist '(org-roam-node . my-org-roam-map))
+
 
 ;; from vulpea; auto add org-ids to note file
 
