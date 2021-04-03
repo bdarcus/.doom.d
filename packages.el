@@ -1,7 +1,7 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
-(package! origami)
+;(package! origami)
 (package! rnc-mode)
 (package! org-roam 
   :recipe (:host github :repo "org-roam/org-roam" :branch "v2"))
@@ -16,21 +16,14 @@
 (package! citeproc-org)
 (package! package-lint)
 (package! flycheck-aspell)
-; stettberger/ospl-mode
 
-;  (package! bibtex-actions :recipe (:local-repo "~/Code/bibtex-actions")))
-
-; 
 (unpin! doom-themes)
-;(package! bibtex-completion
-; seems there's a bug where doom is ignoring branch, so do this locally 
-;  :recipe (:local-repo "~/Code/forks/helm-bibtex"
-;           :host github
-;           :type git
-;           :repo "bdarcus/helm-bibtex"
-;           :branch "interactive-bibtex-completion"
-;           :files ("bibtex-completion.el")))
 
-(package! bibtex-actions 
-  :recipe (:host github :repo "bdarcus/bibtex-actions"))
+(package! emacs-origami
+  :recipe (:host github
+           :repo "emacs-origami/origami.el"))
+
+;(package! bibtex-actions 
+;  :recipe (:host github
+;           :repo "bdarcus/bibtex-actions"))
 ;  :recipe (:local-repo "~/Code/bibtex-actions"))
