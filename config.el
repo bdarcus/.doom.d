@@ -12,6 +12,7 @@
 
 (setq which-key-sort-order 'which-key-description-order)
 
+(load "bindings.el")
 
 ;; zotero notes output to org
 
