@@ -5,7 +5,7 @@
 (package! rnc-mode)
 (package! org-roam 
   :recipe (:host github :repo "org-roam/org-roam" :branch "v2"))
-(unpin! selectrum embark consult consult-flycheck)
+(unpin! selectrum embark consult consult-flycheck bibtex-actions)
 ;(package! org-roam-server)
 ;; this is what I need; display like auto-fill, but allows
 ;; one-line-per-sentence
