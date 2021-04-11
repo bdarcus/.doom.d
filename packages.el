@@ -19,9 +19,7 @@
 
 (unpin! doom-themes)
 
-(package! emacs-origami
-  :recipe (:host github
-           :repo "emacs-origami/origami.el"))
+(package! origami)
 
 ;(package! bibtex-actions 
 ;  :recipe (:host github

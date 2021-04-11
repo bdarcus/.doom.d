@@ -3,12 +3,16 @@
 (setq user-full-name "Bruce D'Arcus"
       user-mail-address "bdarcus@gmail.com")
 
-
 ;;; biblio
 (setq! +biblio-pdf-library-dir "~/org/pdf/"
-       +biblio-default-bibliography-files '("~/org/bib/newer.bib")
+       +biblio-default-bibliography-files '("~/org/bib/newer.bib"
+                                            "~/org/bib/me.bib")
        +biblio-notes-path "~/org/roam/biblio/")
 (setq bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
+
+;; add watch on bib notes dir
+(file-notify-add-watch +biblio-notes-path
+                       '(change) (lambda (_event) (bibtex-actions-refresh)))
 
 (setq which-key-sort-order 'which-key-description-order)
 
@@ -57,7 +61,6 @@
         :desc "org-roam-capture" "c" #'org-roam-capture
         :desc "org-roam-dailies-capture-today" "j" #'org-roam-dailies-capture-today)
   (setq org-roam-directory (file-truename "~/org/roam")
-;        org-roam-db-location (file-truename "~/org")
         org-roam-db-gc-threshold most-positive-fixnum
         org-id-link-to-org-use-id t)
   :config
@@ -160,7 +163,7 @@
 
 ;;; Visuals
 
-(setq doom-font (font-spec :family "JetBrainsMono" :size 14))
+(setq doom-font (font-spec :family "JetBrainsMono" :size 12))
 (setq doom-theme 'doom-one)
 (setq display-line-numbers-type t)
 
