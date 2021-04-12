@@ -10,9 +10,27 @@
        +biblio-notes-path "~/org/roam/biblio/")
 (setq bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
 
-;; add watch on bib notes dir
-(file-notify-add-watch +biblio-notes-path
-                       '(change) (lambda (_event) (bibtex-actions-refresh)))
+(defun bd/add-bib-watches (paths)
+  "Add path watches for all PATHS."
+  (let ((flat-paths (-flatten paths)))
+    (cl-loop
+     for path in flat-paths
+     do
+     (file-notify-add-watch
+      path '(change) 'bibtex-actions-refresh))))
+
+(defvar bd/bib-paths
+ (list
+  bibtex-completion-bibliography
+  bibtex-completion-notes-path
+  bibtex-completion-library-path
+  "My bib paths."))
+
+;; Remove any path watches, so can insure they are updated if paths change.
+;; TODO wait, this won't work in tha case.
+;(bd/rm-bib-watches (bd/bib-paths))
+;; Add watches for all bib paths.
+(bd/add-bib-watches bd/bib-paths)
 
 (setq which-key-sort-order 'which-key-description-order)
 
