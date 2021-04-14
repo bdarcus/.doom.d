@@ -43,15 +43,11 @@ In case of directory the path must end with a slash."
 
 ;;; add this section to biblio module once selectrum module merged
 (use-package! bibtex-actions
-  :when (featurep! :completion selectrum))
-
-;; embark
-
-; not sure why I need to do this, but ...
-(use-package! embark)
-; make available the bibtex-actions keymap to embark-act
-;(add-to-list 'embark-keymap-alist '(bibtex . biblio-actions-map))
-(add-to-list 'embark-keymap-alist '(bibtex . bibtex-actions-map))
+  :when (featurep! :completion selectrum)
+  :defer t
+  :config
+  ;; Make the bibtex-actionns bindings available from `embark-act'.
+  (add-to-list 'embark-keymap-alist '(bibtex . bibtex-actions-map)))
 
 ;;; local bibtex-actions customzation
 
