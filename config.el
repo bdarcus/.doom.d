@@ -10,6 +10,29 @@
        +biblio-notes-path "~/org/roam/biblio/")
 (setq bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
 
+
+(defun my/add-bib-watches (paths)
+  "Add path watches for all PATHS."
+  ;; TODO add message for success/failure; what about removal?
+  (let ((flat-paths (-flatten paths)))
+    (cl-loop
+     for path in flat-paths
+     do
+     (file-notify-rm-watch path)
+     (file-notify-add-watch
+      path '(change) 'bibtex-actions-refresh))))
+
+(setq my/bib-paths
+ (list
+  bibtex-completion-bibliography
+  bibtex-completion-notes-path
+  bibtex-completion-library-path
+  "My bib paths."))
+
+;; Add watches for all bib paths.
+(my/add-bib-watches my/bib-paths)
+
+
 (defun bd/add-bib-watches (paths)
   "Add path watches for all PATHS."
   (let ((flat-paths (-flatten paths)))

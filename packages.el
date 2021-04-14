@@ -16,6 +16,7 @@
 (package! citeproc-org)
 (package! package-lint)
 (package! flycheck-aspell)
+(package! vertico)
 
 (unpin! doom-themes)
 
