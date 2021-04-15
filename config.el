@@ -1,5 +1,7 @@
 ;;; user info
 
+(require 'dash)
+
 (setq user-full-name "Bruce D'Arcus"
       user-mail-address "bdarcus@gmail.com")
 
@@ -11,16 +13,16 @@
 (setq bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
 
 
-(defun my/add-bib-watches (paths)
-  "Add path watches for all PATHS."
-  ;; TODO add message for success/failure; what about removal?
-  (let ((flat-paths (-flatten paths)))
-    (cl-loop
-     for path in flat-paths
-     do
-     (file-notify-rm-watch path)
-     (file-notify-add-watch
-      path '(change) 'bibtex-actions-refresh))))
+;(defun my/add-bib-watches (paths)
+;  "Add path watches for all PATHS."
+;  ;; TODO add message for success/failure; what about removal?
+;  (let ((flat-paths (-flatten paths)))
+;    (cl-loop
+;     for path in flat-paths
+;     do
+;     (file-notify-rm-watch path)
+;     (file-notify-add-watch
+;      path '(change) 'bibtex-actions-refresh))))
 
 (setq my/bib-paths
  (list
@@ -30,30 +32,8 @@
   "My bib paths."))
 
 ;; Add watches for all bib paths.
-(my/add-bib-watches my/bib-paths)
+;(my/add-bib-watches my/bib-paths)
 
-
-(defun bd/add-bib-watches (paths)
-  "Add path watches for all PATHS."
-  (let ((flat-paths (-flatten paths)))
-    (cl-loop
-     for path in flat-paths
-     do
-     (file-notify-add-watch
-      path '(change) 'bibtex-actions-refresh))))
-
-(defvar bd/bib-paths
- (list
-  bibtex-completion-bibliography
-  bibtex-completion-notes-path
-  bibtex-completion-library-path
-  "My bib paths."))
-
-;; Remove any path watches, so can insure they are updated if paths change.
-;; TODO wait, this won't work in tha case.
-;(bd/rm-bib-watches (bd/bib-paths))
-;; Add watches for all bib paths.
-(bd/add-bib-watches bd/bib-paths)
 
 (setq which-key-sort-order 'which-key-description-order)
 

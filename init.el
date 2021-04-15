@@ -22,7 +22,7 @@
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (selectrum +orderless +prescient)
+       (selectrum +orderless)
        ;;ivy               ; a search engine for love and life
 
        :ui
@@ -84,7 +84,7 @@
 
        :tools
        ;;ansible
-       biblio            ; A collection of bibliographic reference tools
+       biblio              ; A collection of bibliographic reference tools
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
