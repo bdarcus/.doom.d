@@ -42,9 +42,9 @@ In case of directory the path must end with a slash."
   :set #'+biblio-set-paths-fn)
 
 ;;; add this section to biblio module once selectrum module merged
+(require 'embark) ; I shouldn't need to do this
 (use-package! bibtex-actions
   :when (featurep! :completion selectrum)
-  :defer t
   :config
   ;; Make the bibtex-actionns bindings available from `embark-act'.
   (add-to-list 'embark-keymap-alist '(bibtex . bibtex-actions-map)))
