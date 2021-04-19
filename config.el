@@ -5,6 +5,7 @@
 (setq user-full-name "Bruce D'Arcus"
       user-mail-address "bdarcus@gmail.com")
 
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 ;;; biblio
 (setq! +biblio-pdf-library-dir "~/org/pdf/"
        +biblio-default-bibliography-files '("~/org/bib/newer.bib"
