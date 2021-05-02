@@ -1,0 +1,5 @@
+(package! selectrum)
+(package! embark)
+(package! orderless)
+(package! consult)
+(package! selectrum) 
