@@ -2,4 +2,5 @@
 (package! embark)
 (package! orderless)
 (package! consult)
-(package! selectrum) 
+(package! selectrum)
+(package! marginalia)

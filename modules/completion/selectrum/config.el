@@ -5,9 +5,8 @@
 (selectrum-mode)
 ;; Disable filtering as orderless is used for that
 (setq selectrum-prescient-enable-filtering nil)
-(selectrum-prescient-mode)
-  (setq selectrum-fix-vertical-window-height 17
-        selectrum-max-window-height 17)
+(setq selectrum-fix-vertical-window-height 20
+      selectrum-max-window-height 20)
 
 (marginalia-mode)
 
