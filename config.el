@@ -1,6 +1,7 @@
 ;;; user info
 
 (require 'dash)
+(require 'bibtex-completion)
 
 (setq user-full-name "Bruce D'Arcus"
       user-mail-address "bdarcus@gmail.com")
@@ -10,7 +11,7 @@
 (setq! bibtex-completion-library-path "~/org/pdf/"
        bibtex-completion-bibliography '("~/org/bib/newer.bib"
                                             "~/org/bib/me.bib")
-       bibtex-completion-notes-path "~/org/roam/biblio/")
+       bibtex-completion-notes-path "~/org/roam/biblio/"
        bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
 
 ;;; Visuals
