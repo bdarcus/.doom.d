@@ -19,6 +19,7 @@
 (setq doom-font (font-spec :family "JetBrainsMono" :size 12))
 (setq doom-theme 'doom-one)
 (setq display-line-numbers-type t)
+(setq-default line-spacing 0.1)
 
 (setq projectile-project-search-path "~/Projects")
 

@@ -17,6 +17,7 @@
 (package! package-lint)
 (package! flycheck-aspell)
 (package! vertico)
+(package! bibtex-actions)
 
 (unpin! doom-themes)
 
