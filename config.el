@@ -68,3 +68,7 @@
 (defalias 'bo 'bibtex-actions-open "bibtex-actions-open")
 (defalias 'bn 'bibtex-actions-open-notes "bibtex-actions-open-notes")
 (defalias 'be 'bibtex-actions-open-entry "bibtex-actions-open-entry")
+
+;;; for nativecomp
+(setq native-comp-async-report-warnings-errors nil)
+
