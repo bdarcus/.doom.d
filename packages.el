@@ -13,7 +13,7 @@
 (package! writeroom-mode)
 (package! editorconfig)
 (package! auto-complete-nxml)
-(package! citeproc-org)
+(package! citeproc)
 (package! package-lint)
 (package! flycheck-aspell)
 (package! vertico)
