@@ -3,6 +3,7 @@
 (require 'dash)
 (require 'bibtex-completion)
 (require 'bibtex-actions)
+(require 'vertico-crm)
 
 (setq user-full-name "Bruce D'Arcus"
       user-mail-address "bdarcus@gmail.com")
@@ -14,6 +15,9 @@
                                             "~/org/bib/me.bib")
        bibtex-completion-notes-path "~/org/roam/biblio/"
        bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
+
+;; use vertico-crm prototype for multi-selection
+(vertico-crm-mode)
 
 ;;; Visuals
 
@@ -144,8 +148,8 @@
 (defalias 'be 'bibtex-actions-open-entry "bibtex-actions-open-entry")
 
 ;;; embark
-(setq prefix-help-command #'embark-prefix-help-command)
-(setq embark-action-indicator nil)
+;;(setq prefix-help-command #'embark-prefix-help-command)
+;;(setq embark-action-indicator nil)
 
 ;;; for nativecomp
 (setq native-comp-async-report-warnings-errors nil)
