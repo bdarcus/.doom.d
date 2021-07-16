@@ -1,14 +1,10 @@
 ;;; user info
 
-(require 'dash)
-(require 'bibtex-completion)
-(require 'bibtex-actions)
-(require 'vertico-crm)
-
 (setq user-full-name "Bruce D'Arcus"
       user-mail-address "bdarcus@gmail.com")
 
 (add-to-list 'default-frame-alist '(fullscreen . fullboth))
+
 ;;; biblio
 (setq! bibtex-completion-library-path "~/org/pdf/"
        bibtex-completion-bibliography '("~/org/bib/newer.bib"
@@ -16,8 +12,13 @@
        bibtex-completion-notes-path "~/org/roam/biblio/"
        bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
 
+(setq embark-general-map `(keymap (?G . ,embark-general-map)))
+(define-key bibtex-actions-org-cite-map "G" '("general actions >" . (embark-general-map)))
+(setq which-key-sort-order 'which-key-description-order)
+
+
 ;; use vertico-crm prototype for multi-selection
-(vertico-crm-mode)
+;(vertico-crm-mode)
 
 ;;; Visuals
 
@@ -65,63 +66,13 @@
 (setq auto-complete-nxml-toggle-automatic-key "C-c C-t")
 (setq auto-complete-nxml-automatic-p t)
 
-;;; org-cite
-;(require 'oc-basic)
-;(require 'oc-natbib)
-;(require 'oc-biblatex)
-;(require 'oc-csl)
+;;; org latex
 
-;(setq org-cite-csl-styles-dir "~/.local/share/csl")
-;(setq org-cite-activate-processor 'basic)
-;(setq org-cite-follow-processor 'basic)
-;(setq org-cite-global-bibliography '("~/org/bib/newer.bib" "~/Code/org-mode/test.bib"))
-;(setq bibtex-completion-bibliography "~/org/bib/newer.bib")
+(setq org-latex-compiler "lualatex")
 
-
-(after! ox-latex
-  (add-to-list 'org-latex-classes
-;; TODO change this
-               '("scr-article"
-                 "\\documentclass{scrartcl}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-  (add-to-list 'org-latex-classes
-             '("memoir-article"
-               "\\documentclass[11pt,oneside,article]{memoir}
-                [PACKAGES]
-                \\usepackage{memoir-article-style}
-                [NO-DEFAULT-PACKAGES]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-
-(setq org-latex-default-class "scr-article"
-      org-latex-tables-booktabs t
-      org-latex-hyperref-template "
-\\colorlet{greenyblue}{blue!70!green}
-\\colorlet{blueygreen}{blue!40!green}
-\\providecolor{link}{named}{greenyblue}
-\\providecolor{cite}{named}{blueygreen}
-\\hypersetup{
-  pdfauthor={%a},
-  pdftitle={%t},
-  pdfkeywords={%k},
-  pdfsubject={%d},
-  pdfcreator={%c},
-  pdflang={%L},
-  breaklinks=true,
-  colorlinks=true,
-  linkcolor=,
-  urlcolor=link,
-  citecolor=cite\n}
-\\urlstyle{same}
-")
+(customize-set-value 'org-latex-hyperref-template "
+\\hypersetup{\n pdfauthor={%a},\n pdftitle={%t},\n pdfkeywords={%k},
+ pdfsubject={%d},\n pdfcreator={%c},\n pdflang={%L},\n colorlinks=true}\n")
 
 ;; org-roam v2
 (use-package! org-roam
@@ -135,21 +86,10 @@
   (setq org-roam-directory "~/org/roam")
   (org-roam-setup))
 
-(add-to-list 'completion-at-point-functions #'bibtex-actions-complete-key-at-point)
-
 
 ;;; aliases
 
-(defalias 'bb 'bibtex-actions-insert-bibtex "bibtex-actions-insert-bibtex")
-(defalias 'bc 'bibtex-actions-insert-citation "bibtex-actions-insert-citation")
-(defalias 'bk 'bibtex-actions-insert-key "bibtex-actions-insert-key")
-(defalias 'bo 'bibtex-actions-open "bibtex-actions-open")
-(defalias 'bn 'bibtex-actions-open-notes "bibtex-actions-open-notes")
-(defalias 'be 'bibtex-actions-open-entry "bibtex-actions-open-entry")
-
-;;; embark
-;;(setq prefix-help-command #'embark-prefix-help-command)
-;;(setq embark-action-indicator nil)
+(defalias 'bd/cite 'bibtex-actions-insert-citation "bibtex-actions-insert-citation")
 
 ;;; for nativecomp
 (setq native-comp-async-report-warnings-errors nil)
