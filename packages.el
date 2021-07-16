@@ -20,7 +20,7 @@
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 (package! bookmark-view :recipe (:host github :repo "minad/bookmark-view"))
 
-(unpin! doom-themes)
+(unpin! org-mode doom-themes)
 
 (package! origami)
 
@@ -30,8 +30,10 @@
 (package! gif-screencast :pin "fa81e915c256271fa10b807a2935d5eaa4700dff")
 
 ;; use fork that include vertico-crm
-(package! vertico :recipe (:host github :repo "bdarcus/vertico"))
-(unpin! vertico)
+(package! vertico 
+  :recipe (:host github :repo "bdarcus/vertico" :files ("*.el" "extensions/*.el")) 
+  :pin "cd6f85a600036ea3b797cd8d1734c3c6feafcd6b")
+;(unpin! vertico)
 ;(package! bibtex-actions 
 ;  :recipe (:host github
 ;           :repo "bdarcus/bibtex-actions"))

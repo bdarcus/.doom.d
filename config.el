@@ -18,6 +18,8 @@
 
 
 ;; use vertico-crm prototype for multi-selection
+(use-package! vertico-crm)
+
 ;(vertico-crm-mode)
 
 ;;; Visuals
