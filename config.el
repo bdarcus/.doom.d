@@ -12,10 +12,15 @@
        bibtex-completion-notes-path "~/org/roam/biblio/"
        bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
 
-(setq embark-general-map `(keymap (?G . ,embark-general-map)))
-(define-key bibtex-actions-org-cite-map "G" '("general actions >" . (embark-general-map)))
-(setq which-key-sort-order 'which-key-description-order)
+;(setq embark-general-map `(keymap (?G . ,embark-general-map)))
+;(define-key bibtex-actions-org-cite-map "G" '("general actions >" . (embark-general-map)))
+;(setq which-key-sort-order 'which-key-description-order)
 
+(setq embark-action-indicator
+      '(#("Act (C-h for help)" 0 3 (face highlight)) .
+        #("Act on %2$s '%1$s' (C-h for help)" 0 3 (face highlight))))
+
+(setq prefix-help-command #'embark-prefix-help-command)
 
 ;; use vertico-crm prototype for multi-selection
 (use-package! vertico-crm)
@@ -49,15 +54,15 @@
 
 ;;; Folding
 
-(use-package! origami
-  :commands (origami-toggle-node origami-toggle-all-nodes)
-  :hook (text-mode . origami-mode)
-  :init
-  :config
-  (map! :leader
-        :prefix "t"
-        :desc "Origami-Toggle All Nodes" "O" #'origami-toggle-all-nodes
-        :desc "Origami-Toggle Node" "o" #'origami-toggle-node))
+;(use-package! origami
+;  :commands (origami-toggle-node origami-toggle-all-nodes)
+;  :hook (text-mode . origami-mode)
+;  :init
+;  :config
+;  (map! :leader
+;        :prefix "t"
+;        :desc "Origami-Toggle All Nodes" "O" #'origami-toggle-all-nodes
+;        :desc "Origami-Toggle Node" "o" #'origami-toggle-node))
 
 ;;; nxml mode
 
@@ -77,17 +82,16 @@
  pdfsubject={%d},\n pdfcreator={%c},\n pdflang={%L},\n colorlinks=true}\n")
 
 ;; org-roam v2
-(use-package! org-roam
-  :after org
-  :commands
-  (org-roam-buffer
-   org-roam-setup
-   org-roam-capture
-   org-roam-node-find)
-  :config
-  (setq org-roam-directory "~/org/roam")
-  (org-roam-setup))
 
+(setq org-roam-v2-ack t)
+
+(use-package! org-roam
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/org/roam"))
+  :config
+  (org-roam-setup)
+  (require 'org-roam-protocol))
 
 ;;; aliases
 

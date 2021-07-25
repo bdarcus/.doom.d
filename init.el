@@ -32,7 +32,7 @@
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;fill-column       ; a `fill-column' indicator
        ;hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       ;;hydra
+       hydra
        ;;indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
@@ -78,8 +78,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +enchant 
-              +flyspell)   ; tasing you for misspelling mispelling
+       (spell +enchant)    ; tasing you for misspelling mispelling
        grammar             ; tasing grammar mistake every you make
 
        :tools
@@ -142,10 +141,10 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org
-        ;+roam
+        +roam2
         +noter
         +journal
-        +pandoc)         ; organize your plain life in plain text
+        +pandoc)           ; organize your plain life in plain text
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more

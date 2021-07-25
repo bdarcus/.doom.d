@@ -1,11 +1,13 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
+
+(package! pretty-hydra)
 ;(package! origami)
 (package! rnc-mode)
-(package! org-roam 
-  :recipe (:host github :repo "org-roam/org-roam" :branch "v2"))
-(unpin! selectrum embark consult consult-flycheck)
+(package! org-roam)
+;  :recipe (:host github :repo "org-roam/org-roam"))
+(unpin! selectrum consult consult-flycheck)
 ;(package! org-roam-server)
 ;; this is what I need; display like auto-fill, but allows
 ;; one-line-per-sentence
@@ -13,15 +15,15 @@
 (package! writeroom-mode)
 (package! editorconfig)
 (package! auto-complete-nxml)
-(package! citeproc)
+(unpin! citeproc)
 (package! package-lint)
 (package! flycheck-aspell)
-(unpin! bibtex-actions)
+;(unpin! bibtex-actions)
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 (package! bookmark-view :recipe (:host github :repo "minad/bookmark-view"))
 
 (unpin! org-mode doom-themes)
-
+(package! embark :pin "9d56be162badbbfee405595f2ebdfe16a5bca47d")
 (package! origami)
 
 ;(package! org-re-reveal)
@@ -34,7 +36,7 @@
   :recipe (:host github :repo "bdarcus/vertico" :files ("*.el" "extensions/*.el")) 
   :pin "cd6f85a600036ea3b797cd8d1734c3c6feafcd6b")
 ;(unpin! vertico)
-;(package! bibtex-actions 
+(package! bibtex-actions 
 ;  :recipe (:host github
 ;           :repo "bdarcus/bibtex-actions"))
-;  :recipe (:local-repo "~/Code/bibtex-actions"))
+  :recipe (:local-repo "~/Code/bibtex-actions"))
