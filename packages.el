@@ -22,6 +22,8 @@
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 (package! bookmark-view :recipe (:host github :repo "minad/bookmark-view"))
 
+(package! hercules)
+
 (unpin! org-mode doom-themes)
 (package! embark :pin "9d56be162badbbfee405595f2ebdfe16a5bca47d")
 (package! origami)
