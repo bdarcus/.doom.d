@@ -1,12 +1,19 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; tools/biblio/packages.el
 
-(package! bibtex-completion :pin "a0d32ab16748b7b0c43d6421f1b497b7caf8e590")
+(package! bibtex-completion :pin "12079bb09f203dda5cc2dd003bd60a6ad490f762")
 (when (featurep! :completion ivy)
-  (package! ivy-bibtex :pin "a0d32ab16748b7b0c43d6421f1b497b7caf8e590"))
+  (package! ivy-bibtex :pin "12079bb09f203dda5cc2dd003bd60a6ad490f762"))
 (when (featurep! :completion helm)
-  (package! helm-bibtex :pin "a0d32ab16748b7b0c43d6421f1b497b7caf8e590"))
+  (package! helm-bibtex :pin "12079bb09f203dda5cc2dd003bd60a6ad490f762"))
 (when (featurep! :completion vertico)
-  (package! bibtex-actions :pin "6e3a194c3ab655693f8194be78542366755c58c9"))
+  (package! bibtex-actions :pin "1119f98d5d31dc715957b6c52e6b51d59122f601"))
 
-(package! citeproc :pin "0857973409e3ef2ef0238714f2ef7ff724230d1c")
+(package! org-ref-cite :recipe
+  (:host github
+   :repo "jkitchin/org-ref-cite"
+   ;; exclude the main file with package-requires line, since we don't
+   ;; need it, and don't want it forcing installation of ivy, etc.
+   :files ("*.el" (:exclude "org-ref-cite.el"))) :pin "c1347c48a20134c3aa498297719c0a4e9a340671")
+
+(package! citeproc :pin "34f6311058aeb0ff36ae9f3c4920fb51fae6abff")

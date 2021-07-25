@@ -5,27 +5,112 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
+(setq auth-sources '("~/.authinfo"))
+
 ;;; biblio
-(setq! bibtex-completion-library-path "~/org/pdf/"
-       bibtex-completion-bibliography '("~/org/bib/newer.bib"
-                                            "~/org/bib/me.bib")
-       bibtex-completion-notes-path "~/org/roam/biblio/"
-       bibtex-completion-additional-search-fields '(tags doi url journal booktitle))
 
-;(setq embark-general-map `(keymap (?G . ,embark-general-map)))
-;(define-key bibtex-actions-org-cite-map "G" '("general actions >" . (embark-general-map)))
-;(setq which-key-sort-order 'which-key-description-order)
+;(use-package! oc-csl-ns :after oc)
 
-(setq embark-action-indicator
-      '(#("Act (C-h for help)" 0 3 (face highlight)) .
-        #("Act on %2$s '%1$s' (C-h for help)" 0 3 (face highlight))))
+;(after! org-roam
+;(org-roam-bibtex-mode +1))
 
-(setq prefix-help-command #'embark-prefix-help-command)
+(defvar bd/bibliography '("~/org/bib/newer.bib"))
+(defvar bd/notes '("~/org/roam/biblio/"))
+(defvar bd/library-files '("~/org/pdf/"))
+
+(use-package! pdf-occur)
+
+(after! oc
+  (setq!
+   org-cite-global-bibliography bd/bibliography))
+
+(custom-set-faces!
+  `(embark-target :background ,(doom-blend (doom-color 'bg) (doom-color 'highlight) 0.75)))
+
+(after! citar
+  (setq citar-bibliography bd/bibliography
+        citar-notes-paths bd/notes
+        citar-library-paths bd/library-files
+        citar-symbol-separator "  "
+        citar-format-reference-function 'citar-citeproc-format-reference
+        bd/csl-styles-dir "~/.local/share/csl/styles"
+        org-cite-csl-styles-dir bd/csl-styles-dir
+        citar-citeproc-csl-styles-dir bd/csl-styles-dir
+        citar-citeproc-csl-locales-dir "~/.local/share/csl/locales"
+        citar-citeproc-csl-style (file-name-concat org-cite-csl-styles-dir "apa-6th-edition.csl")
+        bibtex-dialect 'biblatex
+        citar-symbols
+        `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
+          (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
+          (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
+
+  (set-face-attribute 'citar-highlight nil
+                      :foreground "Lightblue"
+                      :weight 'bold))
+
+(defun bd/search-pdf-contents (keys-entries &optional str)
+  "Search pdfs."
+  (interactive (list (citar-select-refs)))
+  (let ((files (citar-file--files-for-multiple-entries
+                (citar--ensure-entries keys-entries)
+                citar-library-paths
+                '("pdf")))
+        (search-str (or str (read-string "Search string: "))))
+    (pdf-occur-search files search-str t)))
+
+(after! embark
+  (add-to-list 'embark-multitarget-actions #'bd/search-pdf-contents))
+
+;; define the keymap
+(defvar bd/citar-embark-become-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "f") #'citar-open-library-files)
+    (define-key map (kbd "o") #'citar-open)
+    (define-key map (kbd "i") #'citar-insert-citation)
+    (define-key map (kbd "c") #'biblio-crossref-lookup)
+    (define-key map (kbd "s") #'biblio-dissemin-lookup)
+  map)
+  "Citar Embark become keymap for biblio lookup.")
+
+;; tell embark about the keymap
+(after! embark
+  (add-to-list 'embark-become-keymaps 'bd/citar-embark-become-map))
+
+(after! oc
+  (defun org-ref-to-org-cite ()
+    "Attempt to convert org-ref citations to org-cite syntax."
+    (interactive)
+    (let* ((cite-conversions '(("cite" . "//b") ("Cite" . "//bc")
+                               ("nocite" . "/n")
+                               ("citep" . "") ("citep*" . "//f")
+                               ("parencite" . "") ("Parencite" . "//c")
+                               ("citeauthor" . "/a/f") ("citeauthor*" . "/a")
+                               ("citeyear" . "/na/b")
+                               ("Citep" . "//c") ("Citealp" . "//bc")
+                               ("Citeauthor" . "/a/cf") ("Citeauthor*" . "/a/c")
+                               ("autocite" . "") ("Autocite" . "//c")
+                               ("notecite" . "/l/b") ("Notecite" . "/l/bc")
+                               ("pnotecite" . "/l") ("Pnotecite" . "/l/bc")))
+           (cite-regexp (rx (regexp (regexp-opt (mapcar #'car cite-conversions) t))
+                            ":" (group (+ (not (any "\n     ,.)]}")))))))
+      (save-excursion
+        (goto-char (point-min))
+        (while (re-search-forward cite-regexp nil t)
+          (message (format "[cite%s:@%s]"
+                                 (cdr (assoc (match-string 1) cite-conversions))
+                                 (match-string 2)))
+          (replace-match (format "[cite%s:@%s]"
+                                 (cdr (assoc (match-string 1) cite-conversions))
+                                 (match-string 2))))))))
 
 ;; use vertico-crm prototype for multi-selection
 (use-package! vertico-crm)
 
-;(vertico-crm-mode)
+(use-package! consult-dir
+  :after consult
+  :bind (:map vertico-map))
+
+(use-package! oxr)
 
 ;;; Visuals
 
@@ -33,6 +118,8 @@
 (setq doom-theme 'doom-one)
 (setq display-line-numbers-type t)
 (setq-default line-spacing 0.1)
+
+(set-language-environment "UTF-8")
 
 (setq projectile-project-search-path "~/Projects")
 
@@ -83,15 +170,20 @@
 
 ;; org-roam v2
 
-(setq org-roam-v2-ack t)
+(use-package! websocket
+    :after org-roam)
 
-(use-package! org-roam
-  :ensure t
-  :custom
-  (org-roam-directory (file-truename "~/org/roam"))
-  :config
-  (org-roam-setup)
-  (require 'org-roam-protocol))
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 
 ;;; aliases
 
@@ -142,3 +234,7 @@
      "/tmp/doom-color-theme" ))
   (gif-screencast-write-colormap)
   (add-hook 'doom-load-theme-hook #'gif-screencast-write-colormap))
+
+(setq ispell-dictionary "en-custom")
+
+(setq ispell-personal-dictionary (expand-file-name ".ispell_personal" doom-private-dir))
