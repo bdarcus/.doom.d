@@ -5,7 +5,11 @@
 
 ;(package! org-mode :recipe (:local-repo "~/Code/org-mode"))
 
+(package! org-modern)
+
 (package! biblio)
+
+(package! mct)
 
 (package! pretty-hydra)
 ;(package! origami)
@@ -17,12 +21,13 @@
 ;           :branch "cite")
 ;  :pin "70fd4bde730dcccf334259d91030171371aba9a0")
 
+(unpin! citar)
 (unpin! org)
 (unpin! magit forge)
 (unpin! parsebib)
-(unpin! org-roam consult consult-flycheck)
-(unpin! org-roam-ui)
-
+(unpin! embark embark-consult consult consult-flycheck)
+(unpin! org-roam org-roam-ui)
+(package! org-sidebar)
 
 (package! pdf-tools)
 (package! consult-dir)
@@ -35,8 +40,6 @@
 (package! auto-complete-nxml)
 (package! package-lint)
 (package! flycheck-aspell)
-;(unpin! bibtex-actions)
-;(unpin! bibtex-completion)
 
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 (package! bookmark-view :recipe (:host github :repo "minad/bookmark-view"))
@@ -57,10 +60,10 @@
    :pin "8419a06c8f29698b9584ab55e452b3d31b2d969d")
 ;  :pin "cd6f85a600036ea3b797cd8d1734c3c6feafcd6b")
 ;(unpin! vertico)
-(package! citar
+;(package! citar
 ;  :recipe (:host github
 ;           :repo "bdarcus/bibtex-actions"))
-  :recipe (:local-repo "~/Code/citar" :files ("*.el")))
+;  :recipe (:local-repo "~/Code/citar" :files ("*.el")))
 ;(package! citeproc :recipe (:local-repo "~/Code/citeproc-el"))
 ;(package! org-ref-cite :recipe (:local-repo "~/Code/org-ref-cite"))
 
@@ -74,5 +77,6 @@
                            :files ("org-ref-ref-links.el" "org-ref-refproc.el")))
 
 (package! oxr :recipe (:host github :repo "bdarcus/oxr"))
-(package! embark 
-  :recipe (:local-repo "~/Code/embark"))
+;(package! embark :recipe (:host github :repo "oantolin/embark") :pin "1842d6b182c4fe7b6aa4d06f4957fbeabaa96de3")
+;(package! embark
+;  :recipe (:local-repo "~/Code/embark"))

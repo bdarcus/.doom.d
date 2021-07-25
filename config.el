@@ -14,11 +14,72 @@
 ;(after! org-roam
 ;(org-roam-bibtex-mode +1))
 
-(defvar bd/bibliography '("~/org/bib/newer.bib"))
+(require 'citar)
+(require 'citar-file)
+
+;(defvar 'embark-multitarget-actions)
+
+(defvar bd/bibliography '("~/org/bib/academic.bib"))
 (defvar bd/notes '("~/org/roam/biblio/"))
 (defvar bd/library-files '("~/org/pdf/"))
 
 (use-package! pdf-occur)
+
+(after! org
+  ;; Use biblatex for latex output; otherwise use csl.
+  (setq org-cite-export-processors '((latex biblatex "windycity, autocite=inline")
+				     (t csl))))
+
+;; meow
+(map! :map meow-leader-keymap
+  "a"  'embark-act
+  "b"  'consult-buffer
+  "c" 'org-cite-insert
+  "f" 'find-file
+  "g"  'consult-grep
+  "l"  'consult-line
+  "o"  'consult-outline
+  "q"  'kill-emacs
+  "r"  'consult-recent-file
+  "s"  'save-buffer
+  ";"  'pp-eval-expression)
+
+;; org-mode
+(setq org-agenda-files
+ (directory-files-recursively "~/org/projects" "~/org/todo" "\\.org$"))
+
+(defun bd/update-pdf-metadata (key-entry)
+  "Add/update metadata of PDF for KEY-ENTRY."
+  (interactive (list (citar-select-ref)))
+  (let* ((entry (cdr key-entry))
+         (key (car key-entry))
+         (file (car (citar-file--files-for-entry
+                     key
+                     entry
+                     citar-library-paths
+                     '("pdf"))))
+         (title (citar-clean-string (citar-get-value 'title entry)))
+         (author (citar-get-value 'author entry)))
+    (call-process-shell-command
+     (concat "exiftool -Title='" title "' -Author='" author "' " file))))
+
+
+(defun bd/org-roam-open-refs ()
+  "Open REFs of the node at point."
+  (interactive)
+  (save-excursion
+    (goto-char (org-roam-node-point (org-roam-node-at-point 'assert)))
+    (when-let* ((p (org-entry-get (point) "ROAM_REFS"))
+                (refs (when p (split-string-and-unquote p)))
+                (refs (if (> (length refs) 1)
+                          (completing-read-multiple "Open: " refs)
+                        refs))
+                (oc-cites
+                 (seq-map
+                  (lambda (ref) (substring ref 1))
+                  (seq-filter (apply-partially #'string-prefix-p "@") refs)))
+                (user-error "No ROAM_REFS found"))
+    (citar-open-library-file oc-cites))))
 
 (after! oc
   (setq!
@@ -27,10 +88,65 @@
 (custom-set-faces!
   `(embark-target :background ,(doom-blend (doom-color 'bg) (doom-color 'highlight) 0.75)))
 
+(defun bd/org-mode-visual()
+  (setq visual-fill-column-width 80
+        visual-fill-column-center-text t
+        display-fill-column-indicator nil
+        display-line-numbers nil)
+  (visual-fill-column-mode 1))
+
+(add-hook! 'org-mode-hook #'bd/org-mode-visual)
+
+;;; One-sentence per line functions
+
+(defun ospl/unfill-paragraph ()
+  "Unfill the paragraph at point.
+
+This repeatedly calls `join-line' until the whole paragraph does
+not contain hard line breaks any more."
+  (interactive)
+  (forward-paragraph 1)
+  (forward-paragraph -1)
+  (while (looking-at paragraph-start)
+    (forward-line 1))
+  (let ((beg (point)))
+    (forward-paragraph 1)
+    (backward-char 1)
+    (while (> (point) beg)
+      (join-line)
+      (beginning-of-line))))
+
+
+(defun ospl/fill-paragraph ()
+  "Fill the current paragraph until there is one sentence per line.
+
+This unfills the paragraph, and places hard line breaks after each sentence."
+  (interactive)
+  (save-excursion
+    (fill-paragraph)         ; takes care of putting 2 spaces if needed
+    (ospl/unfill-paragraph)  ; remove hard line breaks
+
+    ;; insert line breaks again
+    (let ((end-of-paragraph (make-marker)))
+      (save-excursion
+        (forward-paragraph)
+        (backward-sentence)
+        (forward-sentence)
+        (set-marker end-of-paragraph (point)))
+      (forward-sentence)
+      (while (< (point) end-of-paragraph)
+        (just-one-space)
+        (delete-char -1)
+        (newline)
+        (forward-sentence))
+      (set-marker end-of-paragraph nil))))
+
+
 (after! citar
   (setq citar-bibliography bd/bibliography
         citar-notes-paths bd/notes
         citar-library-paths bd/library-files
+        citar-default-action 'citar-open-notes
         citar-symbol-separator "  "
         citar-format-reference-function 'citar-citeproc-format-reference
         bd/csl-styles-dir "~/.local/share/csl/styles"
@@ -59,7 +175,8 @@
     (pdf-occur-search files search-str t)))
 
 (after! embark
-  (add-to-list 'embark-multitarget-actions #'bd/search-pdf-contents))
+  (when (boundp 'embark-multitarget-actions)
+    (add-to-list 'embark-multitarget-actions #'bd/search-pdf-contents)))
 
 ;; define the keymap
 (defvar bd/citar-embark-become-map
@@ -114,10 +231,10 @@
 
 ;;; Visuals
 
-(setq doom-font (font-spec :family "JetBrainsMono" :size 12))
+(setq doom-font (font-spec :family "JetBrainsMono" :size 13))
 (setq doom-theme 'doom-one)
 (setq display-line-numbers-type t)
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.2)
 
 (set-language-environment "UTF-8")
 

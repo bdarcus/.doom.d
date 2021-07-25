@@ -50,7 +50,8 @@
        ;;zen               ; distraction-free coding or writing
 
        :editor
-       (evil +everywhere); come to the dark side, we have cookies
+       (evil +everywhere) ; come to the dark side, we have cookies
+       ;;(meow +qwerty +override +keypad)
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
        ;;(format +onsave)  ; automated prettiness
@@ -78,12 +79,12 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +enchant)    ; tasing you for misspelling mispelling
+       (spell +aspell)     ; tasing you for misspelling mispelling
        grammar             ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
-       biblio              ; A collection of bibliographic reference tools
+       (biblio +icons)     ; A collection of bibliographic reference tools
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
@@ -108,9 +109,9 @@
        ;;agda              ; types of types of types of types...
        ;;cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
-       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
-       ;;crystal           ; ruby at the speed of c
+       crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
        ;;data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
