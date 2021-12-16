@@ -83,7 +83,7 @@
 
        :tools
        ;;ansible
-       (mybiblio +icons)              ; A collection of bibliographic reference tools
+       biblio              ; A collection of bibliographic reference tools
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
@@ -142,6 +142,7 @@
        ;;ocaml             ; an objective camel
        (org
         +roam2
+        +pretty
         +noter
         +journal
         +pandoc)           ; organize your plain life in plain text
