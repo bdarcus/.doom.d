@@ -19,7 +19,8 @@
        ;;japanese
 
        :completion
-       (company +tng)       ; the ultimate code completion backend
+       corfu
+       ;(company +tng)       ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        vertico
