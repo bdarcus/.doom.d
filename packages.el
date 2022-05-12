@@ -21,6 +21,10 @@
 ;           :branch "cite")
 ;  :pin "70fd4bde730dcccf334259d91030171371aba9a0")
 
+;; $DOOMDIR/packages.el
+(package! org-glossary
+  :recipe (:host github :repo "tecosaur/org-glossary"))
+
 (unpin! citar)
 (unpin! org)
 (unpin! magit forge)
@@ -41,6 +45,7 @@
 (package! package-lint)
 (package! flycheck-aspell)
 
+(package! citar-capf :recipe (:host github :repo "mclear-tools/citar-capf"))
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 (package! bookmark-view :recipe (:host github :repo "minad/bookmark-view"))
 

@@ -17,7 +17,18 @@
 (require 'citar)
 (require 'citar-file)
 
+;; $DOOMDIR/config.el
+(use-package! org-glossary :after org)
+
+(use-package! citar-capf)
+
+(setq! org-export-allow-bind-keywords t)
+
 ;(defvar 'embark-multitarget-actions)
+
+(after! consult
+  (setq consult-ripgrep-args
+        "rga --null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --line-number ."))
 
 (defvar bd/bibliography '("~/org/bib/academic.bib"))
 (defvar bd/notes '("~/org/roam/biblio/"))
@@ -27,22 +38,23 @@
 
 (after! org
   ;; Use biblatex for latex output; otherwise use csl.
-  (setq org-cite-export-processors '((latex biblatex "windycity, autocite=inline")
+  (setq org-cite-export-processors '((latex biblatex "ext-authoryear-comp")
+                                     ;; windycity, autocite=inline
 				     (t csl))))
 
 ;; meow
-(map! :map meow-leader-keymap
-  "a"  'embark-act
-  "b"  'consult-buffer
-  "c" 'org-cite-insert
-  "f" 'find-file
-  "g"  'consult-grep
-  "l"  'consult-line
-  "o"  'consult-outline
-  "q"  'kill-emacs
-  "r"  'consult-recent-file
-  "s"  'save-buffer
-  ";"  'pp-eval-expression)
+;(map! :map meow-leader-keymap
+;  "a"  'embark-act
+;  "b"  'consult-buffer
+;  "c" 'org-cite-insert
+;  "f" 'find-file
+;  "g"  'consult-grep
+;  "l"  'consult-line
+;  "o"  'consult-outline
+;  "q"  'kill-emacs
+;  "r"  'consult-recent-file
+;  "s"  'save-buffer
+;  ";"  'pp-eval-expression)
 
 ;; org-mode
 (setq org-agenda-files
@@ -80,6 +92,8 @@
                   (seq-filter (apply-partially #'string-prefix-p "@") refs)))
                 (user-error "No ROAM_REFS found"))
     (citar-open-library-file oc-cites))))
+
+(setq! org-glossary-global-terms (list (file-truename "~/org/terms.org")))
 
 (after! oc
   (setq!
