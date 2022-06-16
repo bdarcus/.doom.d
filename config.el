@@ -17,10 +17,8 @@
 (require 'citar)
 (require 'citar-file)
 
-;; $DOOMDIR/config.el
-(use-package! org-glossary :after org)
-
-(use-package! citar-capf)
+(use-package! org-glossary
+  :hook (org-mode . org-glossary-mode))
 
 (setq! org-export-allow-bind-keywords t)
 

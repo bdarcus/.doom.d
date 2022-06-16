@@ -71,12 +71,12 @@
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
-(use-package cape
-  :defer t
-  :init
-  (add-to-list 'completion-at-point-functions #'cape-file-capf)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev-capf)
-  (add-to-list 'completion-at-point-functions #'cape-keyword-capf))
+;(use-package cape
+;  :defer t
+;  :init
+;  (add-to-list 'completion-at-point-functions #'cape-file-capf)
+;  (add-to-list 'completion-at-point-functions #'cape-dabbrev-capf)
+;  (add-to-list 'completion-at-point-functions #'cape-keyword-capf))
 
 (setq completion-cycle-threshold 1)
 

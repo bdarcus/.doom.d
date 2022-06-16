@@ -5,6 +5,9 @@
 
 ;(package! org-mode :recipe (:local-repo "~/Code/org-mode"))
 
+(package! org-glossary
+  :recipe (:host github :repo "tecosaur/org-glossary"))
+
 (package! org-modern)
 
 (package! biblio)
