@@ -67,15 +67,6 @@
     (corfu-doc-terminal-mode)
     (corfu-terminal-mode)))
 
-(use-package! corfu-doc
-  :hook (corfu-mode . corfu-doc-mode)
-  :custom
-  (corfu-doc-delay 0)
-  :bind (:map corfu-map
-         ("M-n" . corfu-doc-scroll-down)
-         ("M-p" . corfu-doc-scroll-up)
-         ("M-d" . corfu-doc-toggle)))
-
 (use-package! orderless
   :when (modulep! +orderless)
   :init

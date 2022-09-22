@@ -4,16 +4,16 @@
 ;(package! org-roam-bibtex)
 
 ;(package! org-mode :recipe (:local-repo "~/Code/org-mode"))
+(package! websocket)
+(package! org-roam-ui)
 
 (package! org-glossary
   :recipe (:host github :repo "tecosaur/org-glossary"))
 
 (package! org-modern)
-
+;(package! spdx)
 (package! biblio)
-
-(package! mct)
-
+(package! pandoc-mode)
 (package! pretty-hydra)
 ;(package! origami)
 (package! rnc-mode)
@@ -28,12 +28,6 @@
 (package! org-glossary
   :recipe (:host github :repo "tecosaur/org-glossary"))
 
-(unpin! citar)
-(unpin! org)
-(unpin! magit forge)
-(unpin! parsebib)
-(unpin! embark embark-consult consult consult-flycheck)
-(unpin! org-roam org-roam-ui)
 (package! org-sidebar)
 
 (package! pdf-tools)
@@ -48,13 +42,12 @@
 (package! package-lint)
 (package! flycheck-aspell)
 
-(package! citar-capf :recipe (:host github :repo "mclear-tools/citar-capf"))
+;(package! citar-capf :recipe (:host github :repo "mclear-tools/citar-capf"))
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 (package! bookmark-view :recipe (:host github :repo "minad/bookmark-view"))
 
 ;(package! hercules)
 
-(unpin! doom-themes)
 (package! origami)
 
 ;(package! org-re-reveal)
@@ -65,15 +58,14 @@
 ;; use fork that include vertico-crm
 (package! vertico 
   :recipe (:host github :repo "bdarcus/vertico" :files ("*.el" "extensions/*.el")) 
-   :pin "8419a06c8f29698b9584ab55e452b3d31b2d969d")
-;  :pin "cd6f85a600036ea3b797cd8d1734c3c6feafcd6b")
+   :pin "034ee0c86fb61220f54d5ef76a49655135f97cff")
 ;(unpin! vertico)
-;(package! citar
-;  :recipe (:host github
-;           :repo "bdarcus/bibtex-actions"))
-;  :recipe (:local-repo "~/Code/citar" :files ("*.el")))
-;(package! citeproc :recipe (:local-repo "~/Code/citeproc-el"))
-;(package! org-ref-cite :recipe (:local-repo "~/Code/org-ref-cite"))
+(package! citar
+  :recipe (:local-repo "~/Code/citar"))
+(unpin! citar-embark)
+
+(package! svg-lib)
+(package! svg-tag-mode)
 
 ;(package! meow)
 
@@ -82,7 +74,7 @@
 ;(package! oer/org-re-reveal-citeproc)
 (package! org-ref :recipe (:host github 
                            :repo "jkitchin/org-ref" 
-                           :files ("org-ref-ref-links.el" "org-ref-refproc.el")))
+                           :files ("org-ref-ref-links.el" "org-ref-refproc.el" "org-ref-citation-links.el")))
 
 (package! oxr :recipe (:host github :repo "bdarcus/oxr"))
 ;(package! embark :recipe (:host github :repo "oantolin/embark") :pin "1842d6b182c4fe7b6aa4d06f4957fbeabaa96de3")

@@ -14,11 +14,82 @@
 ;(after! org-roam
 ;(org-roam-bibtex-mode +1))
 
+(defvar bd/bibliography '("~/org/bib/academic.bib"))
+(defvar bd/notes '("~/org/roam/biblio/"))
+(defvar bd/library-files '("~/org/pdf/"))
+
+;; ekg test
+
+(after! markdown-mode
+  (add-hook 'markdown-mode-hook 'pandoc-mode))
+
+(after! citar
+  (defvar citar-indicator-files-icons
+    (citar-indicator-create
+     :symbol (all-the-icons-faicon
+              "file-o"
+              :face 'all-the-icons-green
+              :v-adjust -0.1)
+     :function #'citar-has-files
+     :tag "has:files"))
+
+  (defvar citar-indicator-links-icons
+    (citar-indicator-create
+     :symbol (all-the-icons-octicon
+              "link"
+              :face 'all-the-icons-orange
+              :v-adjust 0.01)
+     :function #'citar-has-links
+     :tag "has:links"))
+
+  (defvar citar-indicator-notes-icons
+    (citar-indicator-create
+     :symbol (all-the-icons-material
+              "speaker_notes"
+              :face 'all-the-icons-blue
+              :v-adjust -0.3)
+     :function #'citar-has-notes
+     :tag "has:notes"))
+
+  (add-hook 'org-mode-hook 'citar-capf-setup)
+  (add-hook 'markdown-mode-hook 'citar-capf-setup)
+  (add-hook 'LaTeX-mode-hook 'citar-capf-setup)
+  (setq citar-bibliography bd/bibliography
+        citar-notes-paths bd/notes
+        citar-library-paths bd/library-files
+        citar-default-action 'citar-open-notes
+        citar-symbol-separator "  "
+        citar-format-reference-function 'citar-citeproc-format-reference
+        bd/csl-styles-dir "~/.local/share/csl/styles"
+        org-cite-csl-styles-dir bd/csl-styles-dir
+        citar-citeproc-csl-styles-dir bd/csl-styles-dir
+        citar-citeproc-csl-locales-dir "~/.local/share/csl/locales"
+        citar-citeproc-csl-style (file-name-concat org-cite-csl-styles-dir "apa-6th-edition.csl")
+        bibtex-dialect 'biblatex
+        citar-indicators
+        (list citar-indicator-files-icons
+              citar-indicator-links-icons
+              citar-indicator-notes-icons))
+
+  (set-face-attribute 'citar-highlight nil
+                      :foreground "Lightblue"
+                      :weight 'bold))
+
 (require 'citar)
 (require 'citar-file)
 
-(use-package! org-glossary
-  :hook (org-mode . org-glossary-mode))
+;; $DOOMDIR/config.el
+(use-package! org-glossary :after org
+  :custom
+  (org-glossary-global-terms (list (file-truename "~/org/terms.org"))))
+
+(use-package! citar-capf)
+
+;(use-package spdx
+;  :ensure t
+;  :custom
+;  (spdx-copyright-holder 'auto)
+;  (spdx-project-detection 'auto))
 
 (setq! org-export-allow-bind-keywords t)
 
@@ -28,17 +99,14 @@
   (setq consult-ripgrep-args
         "rga --null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --line-number ."))
 
-(defvar bd/bibliography '("~/org/bib/academic.bib"))
-(defvar bd/notes '("~/org/roam/biblio/"))
-(defvar bd/library-files '("~/org/pdf/"))
+
 
 (use-package! pdf-occur)
 
-(after! org
-  ;; Use biblatex for latex output; otherwise use csl.
-  (setq org-cite-export-processors '((latex biblatex "ext-authoryear-comp")
-                                     ;; windycity, autocite=inline
-				     (t csl))))
+(use-package! biblio
+  :custom
+  (biblio-crossref-user-email-address user-mail-address)
+  (biblio-download-directory bd/library-files))
 
 ;; meow
 ;(map! :map meow-leader-keymap
@@ -54,9 +122,23 @@
 ;  "s"  'save-buffer
 ;  ";"  'pp-eval-expression)
 
+(setq elfeed-feeds
+      '("https://journals.sagepub.com/action/showFeed?ui=0&mi=ehikzz&ai=2b4&jc=phgb&type=etoc&feed=rss"
+        "https://www.tandfonline.com/feed/rss/raag21"
+        "https://compass.onlinelibrary.wiley.com/feed/17498198/most-recent"
+        "https://rss.sciencedirect.com/publication/science/09626298"
+        "https://journals.sagepub.com/action/showFeed?ui=0&mi=ehikzz&ai=2b4&jc=epda&type=etoc&feed=rss"))
+
 ;; org-mode
-(setq org-agenda-files
- (directory-files-recursively "~/org/projects" "~/org/todo" "\\.org$"))
+(after! org
+  ;; Use biblatex for latex output; otherwise use csl.
+  (setq org-cite-export-processors '((latex biblatex "ext-authoryear-comp")
+                                     ;; windycity, autocite=inline
+				     (t csl)))
+  (setq org-agenda-files
+        (append
+         (directory-files-recursively "~/org/todo" "\\.org$")
+         (directory-files-recursively "~/Projects" "todo.org$"))))
 
 (defun bd/update-pdf-metadata (key-entry)
   "Add/update metadata of PDF for KEY-ENTRY."
@@ -154,27 +236,6 @@ This unfills the paragraph, and places hard line breaks after each sentence."
       (set-marker end-of-paragraph nil))))
 
 
-(after! citar
-  (setq citar-bibliography bd/bibliography
-        citar-notes-paths bd/notes
-        citar-library-paths bd/library-files
-        citar-default-action 'citar-open-notes
-        citar-symbol-separator "  "
-        citar-format-reference-function 'citar-citeproc-format-reference
-        bd/csl-styles-dir "~/.local/share/csl/styles"
-        org-cite-csl-styles-dir bd/csl-styles-dir
-        citar-citeproc-csl-styles-dir bd/csl-styles-dir
-        citar-citeproc-csl-locales-dir "~/.local/share/csl/locales"
-        citar-citeproc-csl-style (file-name-concat org-cite-csl-styles-dir "apa-6th-edition.csl")
-        bibtex-dialect 'biblatex
-        citar-symbols
-        `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-          (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
-          (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-
-  (set-face-attribute 'citar-highlight nil
-                      :foreground "Lightblue"
-                      :weight 'bold))
 
 (defun bd/search-pdf-contents (keys-entries &optional str)
   "Search pdfs."
