@@ -343,12 +343,11 @@ This unfills the paragraph, and places hard line breaks after each sentence."
 
 ;;; nxml mode
 
-(add-hook 'nxml-mode
-          (lambda ()
-            (setq company-backends '(company-nxml))))
-(setq auto-complete-nxml-popup-help-key "C-:")
-(setq auto-complete-nxml-toggle-automatic-key "C-c C-t")
-(setq auto-complete-nxml-automatic-p t)
+(after! 'nxml-mode
+  (add-hook 'completion-at-point-functions #'rng-completion-at-point -100 t)
+  (setq auto-complete-nxml-popup-help-key "C-:")
+  (setq auto-complete-nxml-toggle-automatic-key "C-c C-t")
+  (setq auto-complete-nxml-automatic-p t))
 
 ;;; org latex
 
