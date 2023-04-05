@@ -64,7 +64,8 @@
   :recipe (:local-repo "~/Code/citar"))
 (unpin! citar-embark)
 
-(package! svg-lib)
+(package! svg-lib
+  :recipe (:host github :repo "rougier/svg-lib"))
 (package! svg-tag-mode)
 
 ;(package! meow)
