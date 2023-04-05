@@ -109,7 +109,6 @@ derivative.")
              cape-sgml
              cape-rfc1345
              cape-abbrev
-             cape-ispell
              cape-dict
              cape-symbol
              cape-line)
@@ -117,15 +116,15 @@ derivative.")
   (add-to-list 'completion-at-point-functions #'cape-file)
   (when +corfu-ispell-in-comments-and-strings
     (defalias 'corfu--ispell-in-comments-and-strings
-      (cape-super-capf (cape-capf-inside-comment #'cape-ispell)
-                       (cape-capf-inside-string #'cape-ispell)))
+      (cape-super-capf (cape-capf-inside-comment #'cape-dict)
+                       (cape-capf-inside-string #'cape-dict)))
     (add-hook 'prog-mode-hook
               (lambda ()
-                (add-to-list 'completion-at-point-functions #'corfu--ispell-in-comments-and-strings))))
+                (add-to-list 'completion-at-point-functions #'corfu--ispell-in-comments-and-strings t))))
   (dolist (sym +corfu-ispell-completion-modes)
     (add-hook (intern (concat (symbol-name sym) "-hook"))
               (lambda ()
-                (add-to-list 'completion-at-point-functions #'cape-ispell)) :depth 3))
+                (add-to-list 'completion-at-point-functions #'cape-dict t))))
   (add-hook! '(TeX-mode-hook LaTeX-mode-hook org-mode-hook)
     (lambda ()
       (add-to-list 'completion-at-point-functions #'cape-tex t))
