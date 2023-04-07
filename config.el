@@ -24,32 +24,6 @@
   (add-hook 'markdown-mode-hook 'pandoc-mode))
 
 (after! citar
-  (defvar citar-indicator-files-icons
-    (citar-indicator-create
-     :symbol (all-the-icons-faicon
-              "file-o"
-              :face 'all-the-icons-green
-              :v-adjust -0.1)
-     :function #'citar-has-files
-     :tag "has:files"))
-
-  (defvar citar-indicator-links-icons
-    (citar-indicator-create
-     :symbol (all-the-icons-octicon
-              "link"
-              :face 'all-the-icons-orange
-              :v-adjust 0.01)
-     :function #'citar-has-links
-     :tag "has:links"))
-
-  (defvar citar-indicator-notes-icons
-    (citar-indicator-create
-     :symbol (all-the-icons-material
-              "speaker_notes"
-              :face 'all-the-icons-blue
-              :v-adjust -0.3)
-     :function #'citar-has-notes
-     :tag "has:notes"))
 
   (add-hook 'org-mode-hook 'citar-capf-setup)
   (add-hook 'markdown-mode-hook 'citar-capf-setup)
@@ -65,11 +39,7 @@
         citar-citeproc-csl-styles-dir bd/csl-styles-dir
         citar-citeproc-csl-locales-dir "~/.local/share/csl/locales"
         citar-citeproc-csl-style (file-name-concat org-cite-csl-styles-dir "apa-6th-edition.csl")
-        bibtex-dialect 'biblatex
-        citar-indicators
-        (list citar-indicator-files-icons
-              citar-indicator-links-icons
-              citar-indicator-notes-icons))
+        bibtex-dialect 'biblatex)
 
   (set-face-attribute 'citar-highlight nil
                       :foreground "Lightblue"
